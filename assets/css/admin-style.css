@@ -1,0 +1,133 @@
+/* Định dạng toàn bộ trang */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+
+/* Wrapper bao toàn bộ trang */
+
+.wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* Navbar (Header trên cùng) */
+
+.navbar {
+    height: 56px;
+    background-color: #212529;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar .nav-link {
+    color: #0dddec;
+}
+
+.navbar .nav-link:hover {
+    color: #ee2f2f;
+}
+
+
+/* Sidebar (Menu bên trái) */
+
+.sidebar {
+    background-color: #343a40;
+    color: white;
+    height: calc(100vh - 56px);
+    /* Trừ chiều cao của navbar */
+    padding: 20px 0;
+    position: fixed;
+    width: 250px;
+    top: 56px;
+    left: 0;
+    overflow-y: auto;
+}
+
+.sidebar h2 {
+    padding: 15px;
+    text-align: center;
+    border-bottom: 1px solid #495057;
+}
+
+.sidebar .nav-link {
+    color: #adb5bd;
+    padding: 12px 20px;
+    display: block;
+    font-size: 16px;
+    transition: all 0.3s ease-in-out;
+}
+
+.sidebar .nav-link:hover {
+    color: rgb(243, 245, 245);
+    background-color: #495057;
+    border-left: 4px solid #f7352e;
+}
+
+#sinhVienPanel h3 {
+    text-align: center;
+}
+
+
+/* Main content (Nội dung chính) */
+
+.wp-content {
+    margin-left: 250px;
+    padding: 80px 30px 30px;
+    flex: 1;
+    min-height: calc(100vh - 56px);
+    /* Trừ chiều cao của navbar */
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* Định dạng nội dung chính */
+
+.main-content {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+
+/* Định dạng panel */
+
+.content-panel {
+    margin-bottom: 20px;
+    background: rgba(223, 206, 206, 0.555);
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+
+/* Định dạng card */
+
+.card {
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+/* Footer */
+
+.footer {
+    background-color: #212529;
+    color: rgb(139, 10, 10);
+    text-align: center;
+    padding: 10px;
+    width: 100%;
+    margin-top: auto;
+}

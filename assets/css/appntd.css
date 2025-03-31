@@ -1,0 +1,59 @@
+body {
+    background-image: url('../images/background.jpg');
+    background-color: #f0f0f0;
+    font-family: Arial, sans-serif;
+    background-size: cover;
+    background-position-y: -20px;
+}
+
+.container {
+    max-width: 960px;
+    margin: 0px auto;
+}
+
+#header {
+    background-color: #333;
+    /* color: white;
+    padding: 10px 0;
+    text-align: center; */
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    justify-items: center;
+}
+
+#logo {
+    padding: 5px 0px;
+    margin-right: 20px;
+}
+
+#logo img {
+    max-width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+#main-menu {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    margin-left: 20px;
+}
+
+#main-menu li a {
+    color: white;
+    display: flex;
+    align-items: center;
+    /* Căn giữa theo chiều dọc */
+    justify-content: center;
+    /* Căn giữa theo chiều ngang */
+    padding: 18px 20px;
+    text-decoration: none;
+    font-size: 18px;
+    height: 50%;
+}

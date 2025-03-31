@@ -1,0 +1,121 @@
+body {
+    background-color: #e9ecef;
+    margin: 0;
+}
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    /* Đảm bảo container chiếm toàn bộ chiều cao màn hình */
+}
+
+.login-box {
+    width: 350px;
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin: auto;
+    /* Tự động căn giữa nếu cần */
+}
+
+
+/* Các phần CSS khác giữ nguyên */
+
+.login-header {
+    background: url('/assets/images/logindn.jpg') no-repeat center;
+    /* Thay 'URL_ẢNH_NỀN_CỦA_BẠN' bằng URL thực tế */
+    background-size: cover;
+    padding: 80px 40px;
+    border-radius: 10px;
+    position: relative;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.login-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(121, 118, 118, 0.3);
+    /* Lớp phủ màu đen với độ trong suốt */
+    border-radius: 10px;
+}
+
+.login-header h2 {
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+    position: relative;
+    z-index: 1;
+    font-size: 2em;
+    /* Tăng kích thước chữ */
+}
+
+.login-box {
+    width: 400px;
+    /* Tăng chiều rộng */
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin-bottom: 20px;
+    /* Thêm margin-bottom */
+}
+
+.form-control {
+    border: 3px solid #ced4da;
+    border-radius: 15px;
+    padding: 12px 15px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.btn-success {
+    background-color: #4CAF50;
+    /* Màu xanh lá cây tương tự */
+    border: none;
+    padding: 12px 20px;
+    /* Điều chỉnh padding */
+    border-radius: 5px;
+    font-size: 1em;
+    /* Điều chỉnh font-size */
+    color: white;
+    /* Màu chữ trắng */
+    cursor: pointer;
+    /* Hiển thị con trỏ tay */
+}
+
+.btn-success:hover {
+    background-color: #3e8e41;
+    /* Màu xanh lá cây đậm hơn khi hover */
+}
+
+.remember-forgot {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+    font-size: 0.9em;
+    color: #555;
+}
+
+.remember-forgot a {
+    color: #555;
+    text-decoration: none;
+}
+
+.remember-forgot a:hover {
+    text-decoration: underline;
+}
