@@ -139,11 +139,10 @@ function updateSinhVien() {
     const id = idElement.value;
     const hoTen = document.getElementById("editName").value;
     const email = document.getElementById("editEmail").value;
-    const matKhau = "";
+    const matKhau = ""; // Chưa thay đổi mật khẩu, có thể để trống
     const soDienThoai = document.getElementById("editPhone").value;
     const diaChi = document.getElementById("editAddress").value;
     const dob = document.getElementById("editDob").value;
-    console.log(dob);
     const major = document.getElementById("editMajor").value;
     const graduationYear = document.getElementById("editGraduationYear").value;
     const intro = document.getElementById("editIntro").value;
@@ -181,17 +180,28 @@ function updateSinhVien() {
             if (!response.ok) {
                 throw new Error("Network response was not ok");
             }
-            return response.json();
+            return response.json(); // Parse response body as JSON
         })
         .then(data => {
             alert("Cập nhật sinh viên thành công!");
-            loadSinhVien();
+
+            // Cập nhật lại avatar nếu có trong dữ liệu trả về
+            const avatarImage = document.getElementById("detailAvatar");
+
+            if (data.avatar) {
+                avatarImage.src = `http://localhost:8080/avatars/${data.avatar}`; // Cập nhật avatar
+            } else {
+                avatarImage.src = "http://localhost:8080/avatars/default-avatar.png"; // Avatar mặc định nếu không có avatar
+            }
+
+            loadSinhVien(); // Tải lại danh sách sinh viên nếu cần
         })
         .catch(error => {
             console.error("Lỗi khi cập nhật sinh viên:", error);
             alert("Không thể cập nhật sinh viên. Lỗi: " + error.message);
         });
 }
+
 
 
 
