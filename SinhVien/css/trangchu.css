@@ -1,0 +1,154 @@
+@import url('https://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700&display=swap');
+
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    font-family: 'PT Sans Narrow', sans-serif;
+}
+
+.open {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: 10000;
+}
+
+
+section {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.bannerText {
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    transform: translateY(-50%);
+    max-width: 700px;
+}
+
+.bannerText h2,
+.bannerText h3 {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+    text-transform: uppercase;
+}
+
+.bannerText h2 {
+    font-size: 6em;
+}
+
+.bannerText h3 {
+    font-size: 3em;
+}
+
+.bannerText p {
+    font-weight: 400;
+    font-size: 1.5em;
+}
+
+.bannerText a {
+    display: inline-block;
+    margin: 20px 0 0;
+    padding: 10px 20px;
+    background: #161616;
+    color: #fff;
+    font-weight: 700;
+    text-decoration: none;
+    font-size: 1.2em;
+    letter-spacing: 1px;
+}
+
+.bulb {
+    width: 10vw;
+    max-width: 150px;
+    position: absolute;
+    right: 10%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.sci {
+    position: absolute;
+    bottom: 15px;
+    right: 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+.sci li {
+    list-style: none;
+    padding: 10px 0;
+    text-align: center;
+}
+
+.sci li a {
+    font-size: 1.2em;
+    color: #161514;
+}
+
+.header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    padding: 0 10%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+}
+
+.header .logo {
+    margin: 0;
+    padding: 0;
+    font-size: 2em;
+    text-transform: uppercase;
+}
+
+.header ul {
+    margin: 0;
+    padding: 0;
+    z-index: 100;
+    display: flex;
+}
+
+.header ul li {
+    list-style: none;
+    margin: 0 10px;
+}
+
+.header ul li:last-child {
+    margin-right: 0;
+}
+
+.header ul li a {
+    text-decoration: none;
+    font-size: 1.2em;
+    color: #141413;
+    padding: 5px 10px;
+    letter-spacing: 2px;
+}
+
+.header ul li a.active,
+.header ul li a:hover {
+    background: #d42c0b;
+    color: #fff;
+}
+
+.sun1, .sun2, .sun-rays {
+    display: none;
+}

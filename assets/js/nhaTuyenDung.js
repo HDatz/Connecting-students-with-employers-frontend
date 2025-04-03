@@ -296,7 +296,7 @@ async function showRecruiterDetail(recruiterId) {
         document.getElementById("detailDescription").textContent = recruiter.moTaCongTy || "N/A";
 
         if (recruiter.avatar) {
-            document.getElementById("detailLogo").src = `http://localhost:8080/api/QuanTriVien/avatars/${recruiter.avatar}`;
+            document.getElementById("detailLogo").src = `http://localhost:8080/api/QuanTriVien/company_logos/${recruiter.avatar}`;
         } else {
             document.getElementById("detailLogo").src = "/assets/images/default-company-logo.jpg";
         }

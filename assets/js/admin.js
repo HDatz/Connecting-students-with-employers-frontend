@@ -347,8 +347,7 @@ async function showStudentDetail(studentId) {
         } else {
             document.getElementById("detailAvatar").src = "/assets/images/default-avatar.jpg";
         }
-
-        // Hiển thị modal nếu tất cả thông tin được tải thành công
+        //Hien thu model neu tat ca tt dc tai thanh cong
         $("#studentDetailModal").modal("show");
 
     } catch (error) {

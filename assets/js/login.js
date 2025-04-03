@@ -28,7 +28,7 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
 
         // Kiểm tra vai trò, nếu là QUANTRIVIEN thì chuyển vào trang admin
         if (data.role === "ROLE_QUANTRIVIEN") {
-            window.location.href = "/QuanTriVien/admin.html";
+            window.location.href = "/QuanTriVien/bieudo.html";
         } else {
             errorMessage.textContent = "Bạn không có quyền truy cập trang quản trị!";
         }

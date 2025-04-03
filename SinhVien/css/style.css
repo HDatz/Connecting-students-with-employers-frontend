@@ -27,12 +27,12 @@ body {
 }
 
 .open .layer:nth-child(1) {
-    background: #e1a949;
+    background: #0c0c0c;
     z-index: 2;
 }
 
 .open .layer:nth-child(2) {
-    background: #03a9f4;
+    background: #0e0e0e;
     animation-delay: 1s;
     z-index: 1;
 }
@@ -93,7 +93,7 @@ section {
     position: absolute;
     top: 0;
     left: 0;
-    background: #e7b614;
+    background: #0b0b0a;
     width: 100%;
     height: 100%;
     transform-origin: right;
@@ -145,7 +145,7 @@ section {
     display: inline-block;
     margin: 20px 0 0;
     padding: 10px 20px;
-    background: #e4c412;
+    background: #161616;
     color: #fff;
     font-weight: 700;
     text-decoration: none;
@@ -229,7 +229,7 @@ section {
 
 .sci li a {
     font-size: 1.2em;
-    color: #dfc417;
+    color: #161514;
 }
 
 .header {
@@ -276,17 +276,16 @@ section {
 .header ul li a {
     text-decoration: none;
     font-size: 1.2em;
-    color: #ecec1b;
+    color: #141413;
     padding: 5px 10px;
     letter-spacing: 2px;
 }
 
 .header ul li a.active,
 .header ul li a:hover {
-    background: #e7e014;
+    background: #d42c0b;
     color: #fff;
 }
-
 @keyframes fadeInRight {
     0% {
         transform: translateX(150px);
@@ -298,35 +297,58 @@ section {
     }
 }
 
-.element1 {
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Tạo mặt trời */
+.sun1 {
     opacity: 0;
     position: absolute;
     bottom: -150px;
     right: 40%;
     width: 250px;
     height: 250px;
-    border: 40px solid #e3a513;
-    animation: rotate 40s linear infinite, fadeIn 1s linear forwards;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 255, 0, 0.8), rgba(255, 0, 0, 0.7)); /* Màu vàng và đỏ cho mặt trời */
+    animation: rotate 40s linear infinite, fadeInRight 1s linear forwards;
     animation-delay: 7s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.element2 {
+/* Tạo các tia sáng xung quanh mặt trời */
+.sun-rays {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 250px;
+    height: 250px;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    animation: rotate 60s linear infinite;
+    box-shadow: 
+        0 0 10px 10px rgba(255, 255, 0, 0.8),   /* Tia sáng lớn */
+        0 0 15px 20px rgba(255, 255, 0, 0.6),   /* Tia sáng nhẹ */
+        0 0 20px 25px rgba(255, 255, 0, 0.4);   /* Tia sáng nhẹ hơn */
+}
+
+.sun2 {
     opacity: 0;
     position: absolute;
     left: -10px;
     top: 40%;
     width: 50px;
     height: 50px;
-    border: 2px solid #d0e613;
-    animation: rotate 30s linear infinite, fadeIn 1s linear forwards;
+    border-radius: 50%;
+    background-color: #e68608;
+    border: 2px solid #e68608;
+    animation: rotate 30s linear infinite, fadeInRight 1s linear forwards;
     animation-delay: 7s;
-}
-
-@keyframes rotate {
-    0% {
-        transform: rotate(45deg);
-    }
-    100% {
-        transform: rotate(405deg);
-    }
 }
