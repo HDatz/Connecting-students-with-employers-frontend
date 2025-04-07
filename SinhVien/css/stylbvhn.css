@@ -1,0 +1,294 @@
+@import url('https://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700&display=swap');
+* {
+    box-sizing: border-box;
+}
+
+
+/* Cài đặt chung cho body */
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'PT Sans Narrow', sans-serif;
+    background: #fff;
+    color: #333;
+    line-height: 1.6;
+}
+
+
+/* Container căn giữa nội dung chung */
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+
+/* Header */
+
+.header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    padding: 0 10%;
+    background: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    z-index: 100;
+}
+
+.header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+}
+
+.header .logo {
+    font-size: 2em;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin: 0;
+    padding: 0;
+}
+
+.header .logo a {
+    text-decoration: none;
+    font-size: 1.2em;
+    color: #141413;
+    padding: 5px 10px;
+    letter-spacing: 2px;
+}
+
+.header nav ul {
+    display: flex;
+    list-style: none;
+    z-index: 100;
+    padding: 0;
+}
+
+.header nav ul li {
+    margin: 0 15px;
+}
+
+.header nav ul li a {
+    text-decoration: none;
+    font-size: 1.2em;
+    color: #141413;
+    padding: 5px 10px;
+    letter-spacing: 2px;
+    transition: background 0.3s ease;
+}
+
+.header nav ul li a:hover,
+.header nav ul li a.active {
+    background: orange;
+    color: #fff;
+    border-radius: 4px;
+}
+
+
+/*: Search */
+
+
+/* Style cho form tìm kiếm đơn giản */
+
+#search-form {
+    display: flex;
+    gap: 2px;
+    align-items: center;
+}
+
+#search-form input[type="text"] {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    min-width: 250px;
+}
+
+#search-form button {
+    padding: 8px 20px;
+    border: none;
+    border-radius: 4px;
+    background: orange;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+#search-form button:hover {
+    background: #f5c108;
+}
+
+
+/* Main Content: Trang danh sách bài viết full trang */
+
+.bvhn-container {
+    width: 100%;
+    margin: 20px auto;
+    padding: 60px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.bvhn-container h3 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #333;
+    font-size: 2em;
+    font-weight: 600;
+}
+
+.main-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    margin-bottom: 50px;
+}
+
+.main-header h3 {
+    font-size: 2em;
+    color: #333;
+    font-weight: 600;
+    margin: 0;
+    text-align: center;
+}
+
+
+/* Mỗi bài viết */
+
+.bai-viet {
+    background: #fff;
+    margin-bottom: 20px;
+    padding: 15px 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.bai-viet:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.bai-viet h4 {
+    margin: 0 0 10px;
+    font-size: 1.5em;
+    color: #222;
+}
+
+.bai-viet a {
+    display: inline-block;
+    margin-bottom: 10px;
+    color: orange;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.bai-viet a:hover {
+    color: orange;
+}
+
+
+/* Nội dung bài viết (ẩn mặc định) */
+
+.noi-dung {
+    font-size: 1em;
+    line-height: 1.6;
+    color: #555;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #eee;
+}
+
+
+/* Ẩn nội dung bài viết mặc định */
+
+.modal {
+    display: none;
+    /* Ẩn modal mặc định */
+    position: fixed;
+    z-index: 999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background: rgba(0, 0, 0, 0.5);
+    /* Màu nền mờ */
+}
+
+.modal-content {
+    background: #fff;
+    margin: 5% auto;
+    padding: 1px;
+    border-radius: 8px;
+    width: 95%;
+    max-width: 1000px;
+    position: relative;
+    animation: fadeIn 0.3s ease;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+}
+
+
+/* Hiệu ứng fadeIn */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+
+/* Social Icons */
+
+.sci {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+}
+
+.sci ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.sci ul li a {
+    font-size: 1.5em;
+    color: #141514;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.sci ul li a:hover {
+    color: orange;
+}

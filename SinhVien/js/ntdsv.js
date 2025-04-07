@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Tạo phần tử mô tả công ty
                 const companyDescription = document.createElement('p');
                 companyDescription.textContent = company.moTaCongTy || 'Chưa có mô tả';
+                companyDescription.style.display = 'none';
 
                 // Tạo phần tử liên kết xem chi tiết
                 const viewDetailsLink = document.createElement('a');
@@ -37,6 +38,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 // Thêm companyItem vào danh sách công ty
                 companyList.appendChild(companyItem);
+
+                viewDetailsLink.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    companyDescription.style.display = companyDescription.style.display === 'none' ? 'block' : 'none';
+                });
             });
         })
         .catch(error => {

@@ -27,12 +27,12 @@ body {
 }
 
 .open .layer:nth-child(1) {
-    background: #0c0c0c;
+    background: orange;
     z-index: 2;
 }
 
 .open .layer:nth-child(2) {
-    background: #0e0e0e;
+    background: orange;
     animation-delay: 1s;
     z-index: 1;
 }
@@ -93,7 +93,7 @@ section {
     position: absolute;
     top: 0;
     left: 0;
-    background: #0b0b0a;
+    background: orange;
     width: 100%;
     height: 100%;
     transform-origin: right;
@@ -283,9 +283,10 @@ section {
 
 .header ul li a.active,
 .header ul li a:hover {
-    background: #d42c0b;
+    background: orange;
     color: #fff;
 }
+
 @keyframes fadeInRight {
     0% {
         transform: translateX(150px);
@@ -306,7 +307,9 @@ section {
     }
 }
 
+
 /* Tạo mặt trời */
+
 .sun1 {
     opacity: 0;
     position: absolute;
@@ -315,7 +318,8 @@ section {
     width: 250px;
     height: 250px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(255, 255, 0, 0.8), rgba(255, 0, 0, 0.7)); /* Màu vàng và đỏ cho mặt trời */
+    background: radial-gradient(circle, rgba(255, 255, 0, 0.8), rgba(255, 0, 0, 0.7));
+    /* Màu vàng và đỏ cho mặt trời */
     animation: rotate 40s linear infinite, fadeInRight 1s linear forwards;
     animation-delay: 7s;
     display: flex;
@@ -323,7 +327,9 @@ section {
     align-items: center;
 }
 
+
 /* Tạo các tia sáng xung quanh mặt trời */
+
 .sun-rays {
     position: absolute;
     top: 50%;
@@ -333,10 +339,10 @@ section {
     transform: translate(-50%, -50%);
     border-radius: 50%;
     animation: rotate 60s linear infinite;
-    box-shadow: 
-        0 0 10px 10px rgba(255, 255, 0, 0.8),   /* Tia sáng lớn */
-        0 0 15px 20px rgba(255, 255, 0, 0.6),   /* Tia sáng nhẹ */
-        0 0 20px 25px rgba(255, 255, 0, 0.4);   /* Tia sáng nhẹ hơn */
+    box-shadow: 0 0 10px 10px rgba(255, 255, 0, 0.8), /* Tia sáng lớn */
+    0 0 15px 20px rgba(255, 255, 0, 0.6), /* Tia sáng nhẹ */
+    0 0 20px 25px rgba(255, 255, 0, 0.4);
+    /* Tia sáng nhẹ hơn */
 }
 
 .sun2 {

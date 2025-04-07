@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Dai Hoc Dai Nam</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Font Awesome & Google Fonts -->
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700&display=swap" rel="stylesheet">
+    <!-- CSS của bạn -->
+    <link rel="stylesheet" href="/SinhVien/css/stylbvhn.css">
+    <!-- Script nếu cần -->
+    <script src="/SinhVien/js/bvhn.js" defer></script>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <h2 class="logo"><a href="index.html">Đại Nam</a></h2>
+            <nav>
+                <ul>
+                    <li><a href="trangchu.html">Trang Chủ</a></li>
+                    <li><a href="#">Giới Thiệu</a></li>
+                    <li><a href="ntdsv.html">Nhà Tuyển Dụng</a></li>
+                    <li><a href="#" class="active">Bài Viết</a></li>
+                    <li><a href="#">Tuyển Dụng</a></li>
+                    <li><a href="/loginntd.html">Đăng Nhập</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="bvhn-container" id="bvhn-container">
+        <div class="header-wrapper">
+            <div class="main-header">
+                <h3>Danh Sách Bài Viết Hướng Nghiệp</h3>
+                <!-- Phần tìm kiếm kiểu expandable -->
+                <form id="search-form">
+                    <input type="text" id="search-title" placeholder="Tìm theo tiêu đề...">
+                    <button type="submit" id="search-button">Tìm</button>
+                </form>
+            </div>
+        </div>
+        <div id="articles-list">
+            <!-- Các bài viết sẽ được chèn vào đây -->
+        </div>
+    </main>
+
+    <!-- Modal hiển thị chi tiết bài viết -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h4 id="modal-title"></h4>
+            <div id="modal-body"></div>
+        </div>
+    </div>
+
+    <aside class="sci">
+        <ul>
+            <li><a href="https://www.facebook.com/DAINAM.EDU.VN"><i class="fa fa-facebook"></i></a></li>
+            <li><a href="#"><i class="fa fa-user-graduate"></i></a></li>
+            <li><a href="https://www.dainam.edu.vn/vi"><i class="fa fa-linkedin"></i></a></li>
+            <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+        </ul>
+    </aside>
+</body>
+
+</html>

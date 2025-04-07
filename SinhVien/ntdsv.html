@@ -1,55 +1,74 @@
-<!Doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
     <title>Dai Hoc Dai Nam</title>
-    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/SinhVien/css/stylentd.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Font Awesome & Google Fonts -->
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700&display=swap" rel="stylesheet">
+    <!-- CSS của bạn -->
+    <link rel="stylesheet" href="/SinhVien/css/stylentd.css">
+    <!-- Script nếu cần -->
     <script src="/SinhVien/js/ntdsv.js"></script>
-
 </head>
 
 <body>
-   
-    <section>
-        <div class="header">
-            <h2 href="index.html" class="logo">Đại Nam</h2>
-            <ul>
-                <li>
-                    <a href="trangchu.html" >Trang Chủ</a>
-                </li>
-                <li>
-                    <a href="#">Giới Thiệu</a>
-                </li>
-                <li>
-                    <a href="#" class="active">Nhà Tuyển Dụng</a>
-                </li>
-                <li>
-                    <a href="#">Bài Viết</a>
-                </li>
-                <li>
-                    <a href="#">Tuyển Dụng</a>
-                </li>
-                <li>
-                    <a href="/loginntd.html">Đăng Nhập</a>
-                </li>
-            </ul>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <h2 class="logo"><a href="index.html">Đại Nam</a></h2>
+            <nav>
+                <ul>
+                    <li>
+                        <a href="trangchu.html">Trang Chủ</a>
+                    </li>
+                    <li>
+                        <a href="#">Giới Thiệu</a>
+                    </li>
+                    <li>
+                        <a href="#" class="active">Nhà Tuyển Dụng</a>
+                    </li>
+                    <li>
+                        <a href="bvhn.html">Bài Viết</a>
+                    </li>
+                    <li>
+                        <a href="#">Tuyển Dụng</a>
+                    </li>
+                    <li>
+                        <a href="/loginntd.html">Đăng Nhập</a>
+                    </li>
+                </ul>
+            </nav>
         </div>
-        <main class="companies">
+    </header>
+
+    <!-- Main Content -->
+    <main class="companies">
+        <div class="container">
             <h3>Danh Sách Công Ty</h3>
-            <section class="company-list">
-                <!-- Danh sách công ty sẽ được hiển thị ở đây -->
-            </section>
-        </main>
-        <ul class="sci">
+            <div class="company-list">
+                <!-- Các mục công ty sẽ được chèn vào đây -->
+                <!-- Ví dụ một mục công ty: -->
+                <div class="company-item">
+                    <h4>Công Ty 1</h4>
+                    <a href="#">Xem chi tiết</a>
+                </div>
+                <!-- Thêm các company-item khác -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Social Icons -->
+    <aside class="sci">
+        <ul>
             <li><a href="https://www.facebook.com/DAINAM.EDU.VN"><i class="fa fa-facebook"></i></a></li>
             <li><a href="#"><i class="fa fa-user-graduate"></i></a></li>
             <li><a href="https://www.dainam.edu.vn/vi"><i class="fa fa-linkedin"></i></a></li>
             <li><a href="#"><i class="fa fa-instagram"></i></a></li>
         </ul>
-    </section>
+    </aside>
 </body>
 
 </html>

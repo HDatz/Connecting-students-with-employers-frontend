@@ -1,0 +1,196 @@
+/* Reset & Global Styles */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #fff;
+    color: #333;
+    line-height: 1.6;
+}
+
+
+/* Container */
+
+.container {
+    width: 90%;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+
+/* Header */
+
+#header {
+    background-color: #fff;
+    border-bottom: 2px solid white;
+    padding: 10px 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+#header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+#logo a {
+    display: block;
+    margin-right: 20px;
+}
+
+#logo img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid orange;
+}
+
+nav {
+    flex-grow: 1;
+}
+
+#main-menu {
+    display: flex;
+    list-style: none;
+    justify-content: flex-end;
+    white-space: nowrap;
+}
+
+#main-menu li {
+    margin-left: 30px;
+}
+
+#main-menu li a {
+    color: #333;
+    text-decoration: none;
+    font-size: 18px;
+    padding: 10px 15px;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+#main-menu li a:hover,
+#main-menu li a.active {
+    background-color: orange;
+    color: #fff;
+    border-radius: 4px;
+}
+
+
+/* Slider */
+
+.slides {
+    display: block;
+    position: relative;
+    padding-top: 45%;
+    /* 16:9 Aspect Ratio */
+    transition: 0.3s;
+}
+
+.slides img {
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+
+/* Main Content */
+
+main {
+    background-color: #fff;
+    padding: 0;
+    /* Loại bỏ khoảng cách trên và dưới main */
+}
+
+
+/* Footer */
+
+footer {
+    background-color: #f1f1f1;
+    padding: 40px 0;
+}
+
+footer .container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
+}
+
+footer .box {
+    flex: 1 1 45%;
+    background: #fff;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+footer .box h2 {
+    text-align: center;
+    margin-bottom: 15px;
+    font-size: 1.5em;
+    color: orange;
+}
+
+footer .box p {
+    margin-bottom: 10px;
+}
+
+footer .box a {
+    display: block;
+    text-align: center;
+    background-color: orange;
+    color: #fff;
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 4px;
+    margin-top: 10px;
+}
+
+iframe {
+    width: 100%;
+    height: 200px;
+    border: none;
+    border-radius: 4px;
+    margin-top: 10px;
+}
+
+
+/* Responsive */
+
+@media (max-width: 768px) {
+    #header .container,
+    footer .container {
+        flex-direction: column;
+        align-items: center;
+    }
+    #main-menu {
+        flex-direction: column;
+    }
+    #main-menu li {
+        margin: 10px 0;
+    }
+    footer .box {
+        flex: 1 1 100%;
+    }
+    .slider {
+        height: 250px;
+    }
+}

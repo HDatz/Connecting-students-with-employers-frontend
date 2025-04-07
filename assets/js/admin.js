@@ -25,23 +25,23 @@ function showSinhVienPanel() {
     loadSinhVien();
 }
 
-function showNhaTuyenDungPanel() {
-    showPanel("nhaTuyenDungPanel");
-    loadNhaTuyenDung();
-}
+// function showNhaTuyenDungPanel() {
+//     showPanel("nhaTuyenDungPanel");
+//     loadNhaTuyenDung();
+// }
 
-function showBaiVietPanel() {
-    showPanel("baiVietPanel");
-}
+// function showBaiVietPanel() {
+//     showPanel("baiVietPanel");
+// }
 
-function showBaiDangPanel() {
-    showPanel("baiDangPanel");
-}
+// function showBaiDangPanel() {
+//     showPanel("baiDangPanel");
+// }
 
-function showRestPassword() {
-    showPanel("resetPasswordPanel");
-    loadResetPassword();
-}
+// function showRestPassword() {
+//     showPanel("resetPasswordPanel");
+//     loadResetPassword();
+// }
 
 function showPanel(panelId) {
     document.querySelectorAll(".content-panel").forEach(panel => panel.style.display = "none");
