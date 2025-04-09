@@ -26,11 +26,11 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
         localStorage.setItem("userId", data.id);
         localStorage.setItem("ten", data.ten);
 
-        // Kiểm tra vai trò, nếu là QUANTRIVIEN thì chuyển vào trang admin
-        if (data.role === "ROLE_NhaTuyenDung") {
+        // Kiểm tra vai trò, nếu là QUANTRIVIEN thì chuyển vào trang index
+        if (data.role === "ROLE_NHATUYENDUNG") {
             window.location.href = "/NhaTuyenDung/index.html";
         } else {
-            errorMessage.textContent = "Bạn không có quyền truy cập trang quản trị!";
+            errorMessage.textContent = "Bạn không có quyền truy cập trang nhà tuyển dụng!";
         }
 
     } catch (error) {

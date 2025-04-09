@@ -1,87 +1,96 @@
-@import url('https://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700&display=swap');
+/* Reset & Global Styles */
+
 * {
+    margin: 0;
     box-sizing: border-box;
 }
 
+html,
 body {
-    margin: 0;
-    padding: 0;
-    font-family: 'PT Sans Narrow', sans-serif;
-    background: #fff;
+    height: 100%;
+    overflow-y: scroll;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #fff;
     color: #333;
     line-height: 1.6;
 }
 
 
-/* Container dùng để căn giữa nội dung */
+/* Container */
 
 .container {
-    width: 100%;
-    max-width: 1300px;
+    width: 90%;
+    max-width: 1000px;
     margin: 0 auto;
+    padding: 20px;
 }
 
 
 /* Header */
 
-.header {
+#header {
+    background-color: #fff;
+    border-bottom: 2px solid white;
+    padding: 10px 0;
     position: sticky;
     top: 0;
-    background: #fff;
-    z-index: 100;
+    z-index: 1000;
 }
 
-.header .container {
+#header .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 0;
+    flex-wrap: nowrap;
 }
 
-.header .logo {
-    font-size: 2em;
-    font-weight: bold;
-    text-transform: uppercase;
-    margin: 0;
+#logo a {
+    display: block;
+    margin-right: 20px;
 }
 
-.header .logo a {
-    text-decoration: none;
-    color: #141413;
+#logo img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid orange;
 }
 
-.header nav ul {
+nav {
+    flex-grow: 1;
+}
+
+#main-menu {
     display: flex;
     list-style: none;
-    margin: 0 10px;
-    padding: 0;
+    justify-content: flex-end;
+    white-space: nowrap;
 }
 
-.header nav ul li {
-    margin: 0 15px;
+#main-menu li {
+    margin-left: 30px;
 }
 
-.header nav ul li a {
+#main-menu li a {
+    color: #333;
     text-decoration: none;
-    font-size: 1.2em;
-    color: #141413;
-    padding: 5px 10px;
-    letter-spacing: 2px;
-    /* transition: background 0.3s ease; */
+    font-size: 18px;
+    padding: 10px 15px;
 }
 
-.header nav ul li a:hover,
-.header nav ul li a.active {
-    background: orange;
+#main-menu li a:hover,
+#main-menu li a.active {
+    background-color: orange;
     color: #fff;
     border-radius: 4px;
 }
 
 
-/*: Search */
-
-
-/* Style cho form tìm kiếm đơn giản */
+/* Responsive Styles */
 
 #search-form {
     display: flex;
@@ -212,7 +221,7 @@ body {
 
 .modal-content {
     background: #fff;
-    margin: 5% auto;
+    margin: 9% auto;
     padding: 1px;
     border-radius: 8px;
     width: 95%;
@@ -223,7 +232,6 @@ body {
 
 .close {
     position: absolute;
-    top: 10px;
     right: 15px;
     color: #aaa;
     font-size: 28px;
@@ -235,45 +243,4 @@ body {
 .close:focus {
     color: #000;
     text-decoration: none;
-}
-
-
-/* Hiệu ứng fadeIn */
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-
-
-/* Social Icons */
-
-.sci {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-}
-
-.sci ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.sci ul li a {
-    font-size: 1.5em;
-    color: #141514;
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-.sci ul li a:hover {
-    color: orange;
 }

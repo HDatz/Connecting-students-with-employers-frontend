@@ -56,7 +56,7 @@
         }
         
         input:focus {
-            border-color: #f4a261;
+            border-color: orange;
             outline: none;
         }
         
@@ -76,13 +76,20 @@
         button:hover {
             background-color: #d35400;
         }
+        
+        .error-message {
+            color: red;
+            margin-top: 10px;
+            text-align: center;
+        }
     </style>
+    <link rel="icon" type="image/x-icon" href="/NhaTuyenDung/lg.png">
 </head>
 
 <body>
     <div class="container">
         <h2>Đăng Nhập - Nhà Tuyển Dụng</h2>
-        <form onsubmit="handleLogin(event)">
+        <form id="loginForm">
             <div class="form-group">
                 <label for="email">Email</label>
                 <input type="email" id="email" name="email" placeholder="Nhập email của bạn" required />
@@ -94,6 +101,8 @@
             </div>
 
             <button type="submit">Đăng Nhập</button>
+
+            <div id="error-message" class="error-message"></div>
         </form>
     </div>
 

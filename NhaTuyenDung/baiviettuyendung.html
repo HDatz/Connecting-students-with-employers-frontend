@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nhà Tuyển Dụng - Đại Nam</title>
+    <link rel="icon" type="image/x-icon" href="/NhaTuyenDung/lg.png">
+    <link rel="stylesheet" href="/NhaTuyenDung/css/baiviethuongnghiep.css">
+</head>
+
+<body>
+    <div id="wrapper">
+        <!-- Header -->
+        <header id="header">
+            <div class="container">
+                <div id="logo">
+                    <a href="index.html">
+                        <img src="/assets/images/logindn.jpg" alt="DaiNam.vn">
+                    </a>
+                </div>
+                <nav>
+                    <ul id="main-menu">
+                        <li><a href="index.html">Trang chủ</a></li>
+                        <li><a href="dangbai.html">Đăng Bài</a></li>
+                        <li><a href="hosoungvien.html">Hồ sơ ứng viên</a></li>
+                        <li><a href="hosontd.html">Hồ sơ nhà tuyển dụng</a></li>
+                        <li><a href="#" class="active">Bài Viết Hướng Nghiệp</a></li>
+                        <li><a href="/NhaTuyenDung/login.html">Đăng Nhập</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+
+        <main class="bvhn-container" id="bvhn-container">
+            <div class="header-wrapper">
+                <div class="main-header">
+                    <h3>Danh Sách Bài Viết Hướng Nghiệp</h3>
+                    <!-- Phần tìm kiếm kiểu expandable -->
+                    <form id="search-form">
+                        <input type="text" id="search-title" placeholder="Tìm theo tiêu đề...">
+                        <button type="submit" id="search-button">Tìm</button>
+                    </form>
+                </div>
+            </div>
+            <div id="articles-list">
+                <!-- Các bài viết sẽ được chèn vào đây -->
+            </div>
+        </main>
+
+        <!-- Modal hiển thị chi tiết bài viết -->
+        <div id="modal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h4 id="modal-title"></h4>
+                <div id="modal-body"></div>
+            </div>
+        </div>
+
+    </div>
+</body>
+<script src="/NhaTuyenDung/js/baiviethuongnghiep.js"></script>
+
+</html>
