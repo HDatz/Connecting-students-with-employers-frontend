@@ -2,20 +2,34 @@
 
 * {
     margin: 0;
+    padding: 0;
     box-sizing: border-box;
 }
 
 html,
 body {
     height: 100%;
-    overflow-y: scroll;
 }
 
 body {
-    font-family: Arial, sans-serif;
-    background-color: #fff;
-    color: #333;
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
     line-height: 1.6;
+}
+
+
+/* CSS Variables */
+
+ :root {
+    --primary-color: #ff6600;
+    --bg-color: #fff;
+    --text-color: #333;
+    --header-bg: #fff;
+    --footer-bg: #f1f1f1;
+    --border-radius: 4px;
+    --transition-speed: 0.3s;
+    --box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 
@@ -23,7 +37,7 @@ body {
 
 .container {
     width: 90%;
-    max-width: 1000px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
 }
@@ -32,33 +46,31 @@ body {
 /* Header */
 
 #header {
-    background-color: #fff;
-    border-bottom: 2px solid white;
+    background-color: var(--header-bg);
+    border-bottom: 1px solid #eaeaea;
     padding: 10px 0;
     position: sticky;
     top: 0;
     z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 #header .container {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    flex-wrap: nowrap;
+    justify-content: space-between;
 }
 
-#logo a {
-    display: block;
-    margin-right: 20px;
-}
-
-#logo img {
+#logo a img {
     width: 60px;
     height: 60px;
     border-radius: 50%;
     object-fit: cover;
-    border: 2px solid orange;
+    border: 2px solid var(--primary-color);
 }
+
+
+/* Navigation */
 
 nav {
     flex-grow: 1;
@@ -68,25 +80,26 @@ nav {
     display: flex;
     list-style: none;
     justify-content: flex-end;
-    white-space: nowrap;
 }
 
 #main-menu li {
     margin-left: 30px;
+    position: relative;
 }
 
 #main-menu li a {
-    color: #333;
     text-decoration: none;
-    font-size: 18px;
-    padding: 10px 15px;
+    color: var(--text-color);
+    font-size: 16px;
+    padding: 13px 15px;
+    transition: background var(--transition-speed);
 }
 
 #main-menu li a:hover,
 #main-menu li a.active {
-    background-color: orange;
+    background-color: var(--primary-color);
     color: #fff;
-    border-radius: 4px;
+    border-radius: var(--border-radius);
 }
 
 
@@ -113,16 +126,14 @@ nav {
 /* Main Content */
 
 main {
-    background-color: #fff;
-    padding: 0;
-    /* Loại bỏ khoảng cách trên và dưới main */
+    padding: 40px 0;
 }
 
 
 /* Footer */
 
 footer {
-    background-color: #f1f1f1;
+    background-color: var(--footer-bg);
     padding: 40px 0;
 }
 
@@ -135,17 +146,18 @@ footer .container {
 
 footer .box {
     flex: 1 1 45%;
-    background: #fff;
+    background-color: var(--bg-color);
     padding: 20px;
     border: 1px solid #ddd;
     border-radius: 8px;
+    box-shadow: var(--box-shadow);
 }
 
 footer .box h2 {
+    font-size: 1.5em;
+    color: var(--primary-color);
     text-align: center;
     margin-bottom: 15px;
-    font-size: 1.5em;
-    color: orange;
 }
 
 footer .box p {
@@ -154,20 +166,24 @@ footer .box p {
 
 footer .box a {
     display: block;
-    text-align: center;
-    background-color: orange;
+    background-color: var(--primary-color);
     color: #fff;
-    text-decoration: none;
+    text-align: center;
     padding: 10px;
-    border-radius: 4px;
-    margin-top: 10px;
+    border-radius: var(--border-radius);
+    text-decoration: none;
+    transition: background var(--transition-speed);
 }
 
-iframe {
+footer .box a:hover {
+    background-color: darkorange;
+}
+
+footer iframe {
     width: 100%;
     height: 200px;
     border: none;
-    border-radius: 4px;
+    border-radius: var(--border-radius);
     margin-top: 10px;
 }
 
@@ -182,6 +198,7 @@ iframe {
     }
     #main-menu {
         flex-direction: column;
+        align-items: center;
     }
     #main-menu li {
         margin: 10px 0;
@@ -189,7 +206,36 @@ iframe {
     footer .box {
         flex: 1 1 100%;
     }
-    .slider {
-        height: 250px;
-    }
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.dropdown-menu li a {
+    display: block;
+    padding: 10px;
+    color: black;
+    text-decoration: none;
+}
+
+.dropdown-menu li a:hover {
+    background-color: #f1f1f1;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
 }

@@ -5,86 +5,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Đăng Nhập</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            background: linear-gradient(to right, #f4a261, #e76f51);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-        }
-        
-        .container {
-            background-color: #fff;
-            padding: 30px 25px;
-            max-width: 420px;
-            width: 100%;
-            border-radius: 12px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-        }
-        
-        h2 {
-            text-align: center;
-            color: #e76f51;
-            margin-bottom: 25px;
-        }
-        
-        .form-group {
-            margin-bottom: 18px;
-        }
-        
-        label {
-            display: block;
-            margin-bottom: 6px;
-            font-weight: bold;
-            color: #333;
-        }
-        
-        select,
-        input[type="email"],
-        input[type="password"] {
-            width: 100%;
-            height: 44px;
-            padding: 10px 12px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            font-size: 15px;
-            transition: border-color 0.3s ease;
-            box-sizing: border-box;
-        }
-        
-        select:focus,
-        input:focus {
-            border-color: #f4a261;
-            outline: none;
-        }
-        
-        button {
-            width: 100%;
-            padding: 12px;
-            background-color: #e76f51;
-            color: #fff;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        
-        button:hover {
-            background-color: #d35400;
-        }
-    </style>
+    <link rel="stylesheet" href="/SinhVien/css/login.css">
+    <link rel="icon" type="image/x-icon" href="/NhaTuyenDung/lg.png">
 </head>
 
 <body>
     <div class="container">
         <h2>Đăng Nhập</h2>
-        <form onsubmit="handleSubmit(event)">
+        <form id="loginForm">
             <div class="form-group">
                 <label for="role">Chọn Vai Trò</label>
                 <select id="role" name="role" onchange="handleRoleChange()" required>
@@ -96,19 +24,21 @@
 
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" id="email" name="email" placeholder="Nhập email của bạn" required />
+                <input type="email" id="email" name="email" required />
             </div>
 
             <div class="form-group">
                 <label for="password">Mật Khẩu</label>
-                <input type="password" id="password" name="password" placeholder="Nhập mật khẩu" required />
+                <input type="password" id="password" name="password" required />
             </div>
 
             <button type="submit">Đăng Nhập</button>
+            <div id="errorMessage" style="color: red; margin-top: 10px;"></div>
         </form>
     </div>
 
     <script src="/SinhVien/js/login.js"></script>
 </body>
+
 
 </html>

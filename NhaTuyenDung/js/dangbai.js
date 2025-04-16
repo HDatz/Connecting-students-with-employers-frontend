@@ -1,23 +1,3 @@
-// ----------- Slider -----------
-const imgPosition = document.querySelectorAll('.slides img');
-const imgContainer = document.querySelector('.slides');
-let ingNumber = imgPosition.length;
-let index = 0;
-
-imgPosition.forEach((img, index) => {
-    img.style.left = index * 100 + '%';
-});
-
-function imgSlider() {
-    index++;
-    if (index >= ingNumber) {
-        index = 0;
-    }
-    imgContainer.style.transform = 'translateX(' + (-index * 100) + '%)';
-}
-setInterval(imgSlider, 5000);
-
-
 // ----------- Kiểm tra đăng nhập & hiển thị tên NTD -----------
 document.addEventListener("DOMContentLoaded", function() {
     // Lấy token và tên nhà tuyển dụng từ localStorage
@@ -56,3 +36,43 @@ function dangXuat() {
     // Chuyển hướng về trang đăng nhập
     window.location.href = "/NhaTuyenDung/login.html";
 }
+
+document.getElementById('dangBaiForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    const baiViet = {
+        tieuDe: document.getElementById('tieuDe').value,
+        moTa: document.getElementById('moTa').value,
+        yeuCau: document.getElementById('yeuCau').value,
+        diaDiem: document.getElementById('diaDiem').value,
+        loaiCongViec: document.getElementById('loaiCongViec').value,
+        mucLuong: document.getElementById('mucLuong').value,
+        hanNop: document.getElementById('hanNop').value,
+        soLuongTuyen: parseInt(document.getElementById('soLuongTuyen').value),
+        trangThai: "CHO_DUYET" // mặc định khi đăng bài
+    };
+
+    const token = localStorage.getItem('token');
+    const idNhaTuyenDung = localStorage.getItem('idNhaTuyenDung');
+
+    try {
+        const response = await fetch(`http://localhost:8080/api/nhatuyendung/${idNhaTuyenDung}/baiviet`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(baiViet)
+        });
+
+        if (response.ok) {
+            alert("Đăng bài thành công!");
+            document.getElementById('dangBaiForm').reset();
+        } else {
+            const error = await response.text();
+            alert("Lỗi khi đăng bài: " + error);
+        }
+    } catch (err) {
+        alert("Lỗi kết nối đến server: " + err.message);
+    }
+});

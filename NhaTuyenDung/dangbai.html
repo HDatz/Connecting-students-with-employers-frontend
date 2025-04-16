@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nhà Tuyển Dụng - Đại Nam</title>
+    <link rel="icon" type="image/x-icon" href="/NhaTuyenDung/lg.png">
+    <!-- Import Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/NhaTuyenDung/css/appntd.css">
+    <script src="/NhaTuyenDung/js/dangbai.js"></script>
+</head>
+
+<body>
+    <div id="wrapper">
+        <!-- Header -->
+        <header id="header">
+            <div class="container">
+                <div id="logo">
+                    <a href="index.html">
+                        <img src="/assets/images/logindn.jpg" alt="DaiNam.vn">
+                    </a>
+                </div>
+                <nav>
+                    <ul id="main-menu">
+                        <li><a href="index.html">Trang chủ</a></li>
+                        <li><a href="#" class="active">Đăng Bài</a></li>
+                        <li><a href="hosoungvien.html">Hồ sơ ứng viên</a></li>
+                        <li><a href="hosontd.html">Hồ sơ nhà tuyển dụng</a></li>
+                        <li><a href="/NhaTuyenDung/baiviettuyendung.html">Bài Viết Hướng Nghiệp</a></li>
+                        <li id="login-item"><a href="/NhaTuyenDung/login.html">Đăng Nhập</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+    </div>
+
+    <form id="dangBaiForm">
+        <label>Tiêu đề:</label><br>
+        <input type="text" id="tieuDe" required><br><br>
+
+        <label>Mô tả công việc:</label><br>
+        <textarea id="moTa" rows="5" required></textarea><br><br>
+
+        <label>Yêu cầu:</label><br>
+        <textarea id="yeuCau" rows="5" required></textarea><br><br>
+
+        <label>Địa điểm:</label><br>
+        <input type="text" id="diaDiem"><br><br>
+
+        <label>Loại công việc:</label><br>
+        <select id="loaiCongViec" required>
+          <option value="TOAN_THOI_GIAN">Toàn thời gian</option>
+          <option value="BAN_THOI_GIAN">Bán thời gian</option>
+          <option value="THUC_TAP">Thực tập</option>
+        </select><br><br>
+
+        <label>Mức lương:</label><br>
+        <input type="text" id="mucLuong"><br><br>
+
+        <label>Hạn nộp hồ sơ:</label><br>
+        <input type="date" id="hanNop"><br><br>
+
+        <label>Số lượng tuyển:</label><br>
+        <input type="number" id="soLuongTuyen" required min="1"><br><br>
+
+        <button type="submit">Đăng Bài</button>
+    </form>
+
+</body>
+
+</html>

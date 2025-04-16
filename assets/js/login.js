@@ -11,7 +11,8 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
         const response = await fetch("http://localhost:8080/api/auth/login", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email, password })
+            // Bổ sung thêm trường userType với giá trị "qt"
+            body: JSON.stringify({ email, password, userType: "qt" })
         });
 
         const data = await response.json();

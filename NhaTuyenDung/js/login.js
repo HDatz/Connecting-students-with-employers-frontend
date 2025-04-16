@@ -11,7 +11,7 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
         const response = await fetch("http://localhost:8080/api/auth/login", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email, password })
+            body: JSON.stringify({ email, password, userType: "ntd" })
         });
 
         const data = await response.json();
@@ -26,7 +26,7 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
         localStorage.setItem("userId", data.id);
         localStorage.setItem("ten", data.ten);
 
-        // Kiểm tra vai trò, nếu là QUANTRIVIEN thì chuyển vào trang index
+        // Kiểm tra vai trò, nếu là NHATUYENDUNG thì chuyển hướng
         if (data.role === "ROLE_NHATUYENDUNG") {
             window.location.href = "/NhaTuyenDung/index.html";
         } else {

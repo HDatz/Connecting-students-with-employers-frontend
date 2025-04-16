@@ -145,7 +145,7 @@ section {
     display: inline-block;
     margin: 20px 0 0;
     padding: 10px 20px;
-    background: #161616;
+    background: orange;
     color: #fff;
     font-weight: 700;
     text-decoration: none;
@@ -229,7 +229,7 @@ section {
 
 .sci li a {
     font-size: 1.2em;
-    color: #161514;
+    color: orange;
 }
 
 .header {
@@ -253,6 +253,7 @@ section {
     text-transform: uppercase;
     animation: fadeIn 0.5s linear forwards;
     animation-delay: 5s;
+    color: #e68608;
 }
 
 .header ul {
@@ -276,7 +277,7 @@ section {
 .header ul li a {
     text-decoration: none;
     font-size: 1.2em;
-    color: #141413;
+    color: orange;
     padding: 5px 10px;
     letter-spacing: 2px;
 }
