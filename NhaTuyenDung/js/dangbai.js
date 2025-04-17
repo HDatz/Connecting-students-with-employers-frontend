@@ -1,13 +1,43 @@
-// ----------- Kiểm tra đăng nhập & hiển thị tên NTD -----------
 document.addEventListener("DOMContentLoaded", function() {
-    // Lấy token và tên nhà tuyển dụng từ localStorage
+    // --- Lấy token & decode payload JWT để lấy id nếu cần ---
     const token = localStorage.getItem("token");
-    const tenNhaTuyenDung = localStorage.getItem("ten");
-    const loginItem = document.getElementById("login-item");
+    if (token === null) {
+        alert("Bạn cần đăng nhập lại!");
+        return window.location.href = "/NhaTuyenDung/login.html";
+    }
 
-    // Nếu đã đăng nhập (có token) và có tên, thay thế nội dung nút đăng nhập:
-    if (token && tenNhaTuyenDung && loginItem) {
-        // Thêm class dropdown cho li
+    function parseJwt(token) {
+        try {
+            const base64Payload = token.split('.')[1];
+            const json = atob(base64Payload.replace(/-/g, '+').replace(/_/g, '/'));
+            return JSON.parse(json);
+        } catch (e) {
+            console.error("Lỗi parse JWT:", e);
+            return {};
+        }
+    }
+
+    const payload = parseJwt(token);
+    // Lấy id từ localStorage nếu có, nếu không thì fallback sang payload.id
+    let idNhaTuyenDung = localStorage.getItem("idNhaTuyenDung");
+    if (!idNhaTuyenDung && payload.id) {
+        idNhaTuyenDung = payload.id;
+        localStorage.setItem("idNhaTuyenDung", idNhaTuyenDung);
+    }
+
+    console.log("DEBUG token:", token);
+    console.log("DEBUG payload:", payload);
+    console.log("DEBUG idNhaTuyenDung:", idNhaTuyenDung);
+
+    if (!idNhaTuyenDung) {
+        alert("Bạn cần đăng nhập lại!");
+        return window.location.href = "/NhaTuyenDung/login.html";
+    }
+
+    // --- Hiển thị dropdown tên NTD ---
+    const tenNhaTuyenDung = payload.ten || localStorage.getItem("ten");
+    const loginItem = document.getElementById("login-item");
+    if (tenNhaTuyenDung && loginItem) {
         loginItem.classList.add("dropdown");
         loginItem.innerHTML = `
             <a href="#" class="dropdown-toggle">
@@ -18,61 +48,61 @@ document.addEventListener("DOMContentLoaded", function() {
                 <li><a href="#" id="logout-btn">Đăng Xuất</a></li>
             </ul>
         `;
-        // Gán sự kiện cho nút Đăng Xuất
-        const logoutBtn = document.getElementById("logout-btn");
-        if (logoutBtn) {
-            logoutBtn.addEventListener("click", function(e) {
-                e.preventDefault();
-                dangXuat();
-            });
-        }
+        document.getElementById("logout-btn").addEventListener("click", e => {
+            e.preventDefault();
+            dangXuat();
+        });
     }
-});
 
+    // --- Submit form đăng bài ---
+    const dangBaiForm = document.getElementById("dangBaiForm");
+    if (!dangBaiForm) {
+        return console.error("Không tìm thấy form đăng bài!");
+    }
+
+    dangBaiForm.addEventListener("submit", async function(e) {
+        e.preventDefault();
+
+        // Gom data
+        const baiViet = {
+            tieuDe: document.getElementById("tieuDe").value,
+            moTa: document.getElementById("moTa").value,
+            yeuCau: document.getElementById("yeuCau").value,
+            diaDiem: document.getElementById("diaDiem").value,
+            loaiCongViec: document.getElementById("loaiCongViec").value,
+            mucLuong: document.getElementById("mucLuong").value,
+            hanNop: document.getElementById("hanNop").value,
+            soLuongTuyen: parseInt(document.getElementById("soLuongTuyen").value, 10),
+            trangThai: "CHO_DUYET",
+            nhaTuyenDung: { idNhaTuyenDung: parseInt(idNhaTuyenDung, 10) }
+        };
+
+        try {
+            const res = await fetch(
+                `http://localhost:8080/api/nha-tuyen-dung/bai-dang?idNguoiDang=${idNhaTuyenDung}`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${token}`
+                    },
+                    body: JSON.stringify(baiViet)
+                }
+            );
+
+            if (res.ok) {
+                alert("Đăng bài thành công!");
+                dangBaiForm.reset();
+            } else {
+                const err = await res.text();
+                alert("Lỗi khi đăng bài: " + err);
+            }
+        } catch (err) {
+            alert("Lỗi kết nối đến server: " + err.message);
+        }
+    });
+});
 
 function dangXuat() {
-    // Xóa các thông tin đăng nhập khi đăng xuất
     localStorage.clear();
-    // Chuyển hướng về trang đăng nhập
     window.location.href = "/NhaTuyenDung/login.html";
 }
-
-document.getElementById('dangBaiForm').addEventListener('submit', async function(e) {
-    e.preventDefault();
-
-    const baiViet = {
-        tieuDe: document.getElementById('tieuDe').value,
-        moTa: document.getElementById('moTa').value,
-        yeuCau: document.getElementById('yeuCau').value,
-        diaDiem: document.getElementById('diaDiem').value,
-        loaiCongViec: document.getElementById('loaiCongViec').value,
-        mucLuong: document.getElementById('mucLuong').value,
-        hanNop: document.getElementById('hanNop').value,
-        soLuongTuyen: parseInt(document.getElementById('soLuongTuyen').value),
-        trangThai: "CHO_DUYET" // mặc định khi đăng bài
-    };
-
-    const token = localStorage.getItem('token');
-    const idNhaTuyenDung = localStorage.getItem('idNhaTuyenDung');
-
-    try {
-        const response = await fetch(`http://localhost:8080/api/nhatuyendung/${idNhaTuyenDung}/baiviet`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            },
-            body: JSON.stringify(baiViet)
-        });
-
-        if (response.ok) {
-            alert("Đăng bài thành công!");
-            document.getElementById('dangBaiForm').reset();
-        } else {
-            const error = await response.text();
-            alert("Lỗi khi đăng bài: " + error);
-        }
-    } catch (err) {
-        alert("Lỗi kết nối đến server: " + err.message);
-    }
-});

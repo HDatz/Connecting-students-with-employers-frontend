@@ -117,7 +117,7 @@ nav {
 }
 
 #search-form button:hover {
-    background: #f5c108;
+    background: orange;
 }
 
 
@@ -243,4 +243,36 @@ nav {
 .close:focus {
     color: #000;
     text-decoration: none;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.dropdown-menu li a {
+    display: block;
+    padding: 10px;
+    color: black;
+    text-decoration: none;
+}
+
+.dropdown-menu li a:hover {
+    background-color: #f1f1f1;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
 }

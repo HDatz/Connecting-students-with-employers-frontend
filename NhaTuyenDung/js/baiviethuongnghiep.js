@@ -78,4 +78,34 @@ document.addEventListener("DOMContentLoaded", function() {
             modal.style.display = 'none';
         }
     });
+
+    // Xử lý đăng nhập
+    const token = localStorage.getItem("token");
+    const tenNhaTuyenDung = localStorage.getItem("ten");
+    const loginItem = document.getElementById("login-item");
+
+    if (token && tenNhaTuyenDung && loginItem) {
+        loginItem.classList.add("dropdown");
+        loginItem.innerHTML = `
+             <a href="#" class="dropdown-toggle">
+                 <i class="fa fa-user"></i> <span id="ten-ntd">${tenNhaTuyenDung}</span>
+             </a>
+             <ul class="dropdown-menu">
+                 <li><a href="/NhaTuyenDung/sua-thong-tin.html">Tài Khoản</a></li>
+                 <li><a href="#" id="logout-btn">Đăng Xuất</a></li>
+             </ul>
+         `;
+        const logoutBtn = document.getElementById("logout-btn");
+        if (logoutBtn) {
+            logoutBtn.addEventListener("click", function(e) {
+                e.preventDefault();
+                dangXuat();
+            });
+        }
+    }
 });
+
+function dangXuat() {
+    localStorage.clear();
+    window.location.href = "/NhaTuyenDung/login.html";
+}

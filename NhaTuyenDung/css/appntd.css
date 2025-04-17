@@ -22,7 +22,7 @@ body {
 /* CSS Variables */
 
  :root {
-    --primary-color: #ff6600;
+    --primary-color: orange;
     --bg-color: #fff;
     --text-color: #333;
     --header-bg: #fff;
@@ -176,7 +176,7 @@ footer .box a {
 }
 
 footer .box a:hover {
-    background-color: darkorange;
+    background-color: orange;
 }
 
 footer iframe {
