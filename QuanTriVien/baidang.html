@@ -3,22 +3,27 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Trang Quản Trị</title>
+    <title>Trang Quản Trị - Quản Lý Bài Đăng</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap & FontAwesome -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="/assets/css/admin-style.css">
-    <link rel="icon" type="image/x-icon" href="/assets/images/dainam.jpg">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/assets/images/dainam.jpg" type="image/x-icon">
+    <style>
+
+    </style>
 </head>
 
 <body>
     <div class="wrapper">
         <!-- Navbar -->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
             <a class="navbar-brand" href="bieudo.html">Trang Chủ</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+                <span class="navbar-toggler-icon"></span>
+            </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item"><a class="nav-link" href="bieudo.html">Trang chủ</a></li>
@@ -30,151 +35,91 @@
 
         <div class="container-fluid" style="min-height: 100vh;">
             <div class="row">
-                <!-- Sidebar -->
+                <!-- Sidebar (Menu bên trái) -->
                 <nav class="col-md-3 sidebar p-3" style="height: 100vh; overflow: auto;">
                     <h4 class="text-center mt-3">Quản lý</h4>
                     <ul class="nav flex-column">
-                        <li class="nav-item"><a class="nav-link" href="admin.html">Sinh Viên</a></li>
-                        <li class="nav-item"><a class="nav-link" href="nhaTuyenDung.htm">Nhà Tuyển Dụng</a></li>
-                        <li class="nav-item"><a class="nav-link" href="baiviethuongnghiep.htm">Bài Viết</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Bài Đăng</a></li>
-                        <li class="nav-item"><a class="nav-link" href="resetpassword.html">Lấy Lại Mật Khẩu</a></li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="admin.html" onclick="showPanel('sinhVienPanel', this)">
+                                <i class="fas "></i>Sinh Viên
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="nhaTuyenDung.htm" onclick="showPanel('nhaTuyenDungPanel', this)">
+                                <i class="fas "></i>Nhà Tuyển Dụng
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="baiviethuongnghiep.htm" onclick="showPanel('baiVietPanel', this)">
+                                <i class="fas "></i>Bài Viết
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="baidang.html" onclick="showPanel('baiDangPanel', this)">
+                                <i class="fas "></i> Bài Đăng
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="resetpassword.html" onclick="showPanel('resetPasswordPanel', this)">
+                                <i class="fas "></i>Lấy Lại Mật Khẩu
+                            </a>
+                        </li>
                     </ul>
                 </nav>
 
+                <!-- Nội dung chính -->
                 <main class="col-md-11 wp-content">
-                    <!-- Bài Đăng Panel -->
                     <div id="baiDangPanel" class="content-panel">
-                        <h3 class="text-center mt-3">Quản Lý Bài Đăng Tuyển Dụng Chờ Duyệt</h3>
-                        <table class="table table-bordered table-hover mt-3">
-                            <thead class="thead-light">
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Tiêu đề</th>
-                                    <th>Địa điểm</th>
-                                    <th>Loại công việc</th>
-                                    <th>Mức lương</th>
-                                    <th>Nhà tuyển dụng</th>
-                                    <th>Ngày đăng</th>
-                                    <th>Hành động</th>
-                                </tr>
-                            </thead>
-                            <tbody id="baiDangTableBody"></tbody>
-                        </table>
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h3>Quản Lý Bài Đăng</h3>
+                            <!-- Dropdown lọc trạng thái -->
+                            <div class="dropdown">
+                                <button id="filterDropdown" class="btn btn-outline-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Tất cả trạng thái
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="filterDropdown">
+                                    <a class="dropdown-item" data-filter="all" href="#">Tất cả</a>
+                                    <a class="dropdown-item" data-filter="approved" href="#">Đã Duyệt</a>
+                                    <a class="dropdown-item" data-filter="pending" href="#">Đợi Duyệt</a>
+                                    <a class="dropdown-item" data-filter="rejected" href="#">Đã Từ Chối</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Bảng danh sách -->
+                        <div class="table-responsive">
+                            <table class="table table-hover table-bordered" id="baiDangTable">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Tiêu Đề</th>
+                                        <th>Nhà Tuyển Dụng</th>
+                                        <th>Ngày Đăng</th>
+                                        <th>Hạn Nộp</th>
+                                        <th>Trạng Thái</th>
+                                        <th>Thao Tác</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="baiDangTableBody">
+                                    <!-- Dữ liệu sẽ được render bởi JS -->
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </main>
             </div>
         </div>
 
+        <!-- Footer -->
         <footer class="footer bg-dark text-white text-center py-3">
             &copy; 2025 - Đồ Án Hệ Thống Thông Tin
         </footer>
     </div>
 
     <!-- Scripts -->
+    <script src="/assets/js/baidang.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const logoutBtn = document.getElementById('logoutBtn');
-            logoutBtn && logoutBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                localStorage.clear();
-                window.location.href = '/login.html';
-            });
-
-            loadBaiDangList();
-        });
-
-        // Load danh sách bài đăng chờ duyệt
-        async function loadBaiDangList() {
-            const token = localStorage.getItem('token');
-            if (!token) {
-                alert('Bạn cần đăng nhập!');
-                window.location.href = '/login.html';
-                return;
-            }
-
-            try {
-                const res = await fetch('http://localhost:8080/api/QuanTriVien/BaiDang/choduyet', {
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                    }
-                });
-                if (!res.ok) throw new Error('Lỗi khi lấy danh sách bài đăng');
-                const data = await res.json();
-                const tbody = document.getElementById('baiDangTableBody');
-                tbody.innerHTML = '';
-
-                data.forEach(post => {
-                    const tr = document.createElement('tr');
-                    tr.innerHTML = `
-                <td>${post.idBaiDang}</td>
-                <td>${post.tieuDe}</td>
-                <td>${post.diaDiem || ''}</td>
-                <td>${post.loaiCongViec}</td>
-                <td>${post.mucLuong}</td>
-                <td>${post.tenCongTy}</td>
-                <td>${new Date(post.ngayDang).toLocaleDateString()}</td>
-                <td>
-                    <button class="btn btn-success btn-sm" onclick="duyetBaiDang(${post.idBaiDang})">Duyệt</button>
-                    <button class="btn btn-danger btn-sm" onclick="tuChoiBaiDang(${post.idBaiDang})">Từ chối</button>
-                </td>
-            `;
-                    tbody.appendChild(tr);
-                });
-            } catch (err) {
-                console.error(err);
-                alert('Không thể tải dữ liệu!');
-            }
-        }
-
-
-        // Duyệt bài đăng
-        async function duyetBaiDang(id) {
-            if (!confirm('Bạn chắc chắn muốn duyệt bài đăng này?')) return;
-            await handleAction(id, 'duyet');
-        }
-
-        // Từ chối bài đăng
-        async function tuChoiBaiDang(id) {
-            if (!confirm('Bạn chắc chắn muốn từ chối bài đăng này?')) return;
-            await handleAction(id, 'tuchoi');
-        }
-
-        // Hàm chung xử lý duyệt/từ chối
-        async function handleAction(id, action) {
-            const token = localStorage.getItem('token');
-            if (!token) {
-                alert('Bạn cần đăng nhập!');
-                window.location.href = '/QuanTriVien/login.html';
-                return;
-            }
-
-            const url = `http://localhost:8080/api/QuanTriVien/BaiDang/${id}/${action}`;
-            try {
-                const res = await fetch(url, {
-                    method: 'PUT',
-                    headers: {
-                        'Authorization': `Bearer ${token}`,
-                        'Content-Type': 'application/json'
-                    }
-                });
-                if (res.ok) {
-                    alert('Thành công!');
-                    loadBaiDangList();
-                } else {
-                    const text = await res.text();
-                    throw new Error(text);
-                }
-            } catch (err) {
-                console.error(err);
-                alert('Lỗi: ' + err.message);
-            }
-        }
-    </script>
-
 </body>
 
 </html>

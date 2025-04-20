@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function() {
         loginItem.classList.add("dropdown");
         loginItem.innerHTML = `
             <a href="#" class="dropdown-toggle">
-                <i class="fa fa-user"></i> <span id="ten-ntd">${tenNhaTuyenDung}</span>
+                <i class="fa fa"></i> <span id="ten-ntd">${tenNhaTuyenDung}</span>
             </a>
             <ul class="dropdown-menu">
                 <li><a href="/NhaTuyenDung/sua-thong-tin.html">Tài Khoản</a></li>

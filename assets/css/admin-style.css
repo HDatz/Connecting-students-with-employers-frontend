@@ -77,6 +77,10 @@ body {
     text-align: center;
 }
 
+#baiDangPanel h3 {
+    text-align: center;
+}
+
 
 /* Main content (Nội dung chính) */
 
@@ -130,4 +134,24 @@ body {
     padding: 10px;
     width: 100%;
     margin-top: auto;
+}
+
+#filterDropdown {
+    width: 200px;
+    color: rgb(250, 250, 255);
+}
+
+
+/* Table status badges */
+
+.badge-approved {
+    background: #28a745;
+}
+
+.badge-pending {
+    background: #ffc107;
+}
+
+.badge-rejected {
+    background: #dc3545;
 }
