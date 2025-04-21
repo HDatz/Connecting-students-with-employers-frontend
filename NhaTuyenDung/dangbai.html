@@ -36,7 +36,7 @@
         </header>
     </div>
 
-    <form id="dangBaiForm">
+    <form id="dangBaiForm" enctype="multipart/form-data">
         <label>Tiêu đề:</label><br>
         <input type="text" id="tieuDe" required><br><br>
 
@@ -50,7 +50,7 @@
         <input type="text" id="diaDiem"><br><br>
 
         <label>Loại công việc:</label><br>
-        <select id="loaiCongViec" required>
+        <select id="loaiCongViec" name="loaiCongViec" required>
           <option value="TOAN_THOI_GIAN">Toàn thời gian</option>
           <option value="BAN_THOI_GIAN">Bán thời gian</option>
           <option value="THUC_TAP">Thực tập</option>
@@ -64,6 +64,9 @@
 
         <label>Số lượng tuyển:</label><br>
         <input type="number" id="soLuongTuyen" required min="1"><br><br>
+
+        <label for="banner">Banner (ảnh đại diện):</label><br/>
+        <input type="file" id="banner" accept="image/*" /><br/><br/>
 
         <button type="submit">Đăng Bài</button>
     </form>

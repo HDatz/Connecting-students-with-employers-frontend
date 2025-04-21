@@ -1,11 +1,12 @@
 document.addEventListener("DOMContentLoaded", function() {
-    // --- Lấy token & decode payload JWT để lấy id nếu cần ---
+    // Lấy token từ localStorage
     const token = localStorage.getItem("token");
-    if (token === null) {
+    if (!token) {
         alert("Bạn cần đăng nhập lại!");
         return window.location.href = "/NhaTuyenDung/login.html";
     }
 
+    // Giải mã payload JWT để lấy thông tin user (nếu cần)
     function parseJwt(token) {
         try {
             const base64Payload = token.split('.')[1];
@@ -16,25 +17,20 @@ document.addEventListener("DOMContentLoaded", function() {
             return {};
         }
     }
-
     const payload = parseJwt(token);
-    // Lấy id từ localStorage nếu có, nếu không thì fallback sang payload.id
+
+    // Lấy idNhaTuyenDung: ưu tiên localStorage, fallback payload.id
     let idNhaTuyenDung = localStorage.getItem("idNhaTuyenDung");
     if (!idNhaTuyenDung && payload.id) {
         idNhaTuyenDung = payload.id;
         localStorage.setItem("idNhaTuyenDung", idNhaTuyenDung);
     }
-
-    console.log("DEBUG token:", token);
-    console.log("DEBUG payload:", payload);
-    console.log("DEBUG idNhaTuyenDung:", idNhaTuyenDung);
-
     if (!idNhaTuyenDung) {
         alert("Bạn cần đăng nhập lại!");
         return window.location.href = "/NhaTuyenDung/login.html";
     }
 
-    // --- Hiển thị dropdown tên NTD ---
+    // Thay đổi nút Đăng Nhập thành dropdown hiển thị tên
     const tenNhaTuyenDung = payload.ten || localStorage.getItem("ten");
     const loginItem = document.getElementById("login-item");
     if (tenNhaTuyenDung && loginItem) {
@@ -50,42 +46,47 @@ document.addEventListener("DOMContentLoaded", function() {
         `;
         document.getElementById("logout-btn").addEventListener("click", e => {
             e.preventDefault();
-            dangXuat();
+            localStorage.clear();
+            window.location.href = "/NhaTuyenDung/login.html";
         });
     }
 
-    // --- Submit form đăng bài ---
+    // Thêm enctype cho form (mặc định HTML cũng gửi multipart nếu dùng FormData)
     const dangBaiForm = document.getElementById("dangBaiForm");
-    if (!dangBaiForm) {
-        return console.error("Không tìm thấy form đăng bài!");
-    }
+    dangBaiForm.setAttribute("enctype", "multipart/form-data");
 
+    // Bắt submit form
     dangBaiForm.addEventListener("submit", async function(e) {
         e.preventDefault();
 
-        // Gom data
-        const baiViet = {
-            tieuDe: document.getElementById("tieuDe").value,
-            moTa: document.getElementById("moTa").value,
-            yeuCau: document.getElementById("yeuCau").value,
-            diaDiem: document.getElementById("diaDiem").value,
-            loaiCongViec: document.getElementById("loaiCongViec").value,
-            mucLuong: document.getElementById("mucLuong").value,
-            hanNop: document.getElementById("hanNop").value,
-            soLuongTuyen: parseInt(document.getElementById("soLuongTuyen").value, 10),
-            trangThai: "CHO_DUYET",
-            nhaTuyenDung: { idNhaTuyenDung: parseInt(idNhaTuyenDung, 10) }
-        };
+        // Khởi tạo FormData, append tất cả field
+        const formData = new FormData();
+        formData.append("tieuDe", document.getElementById("tieuDe").value);
+        formData.append("moTa", document.getElementById("moTa").value);
+        formData.append("yeuCau", document.getElementById("yeuCau").value);
+        formData.append("diaDiem", document.getElementById("diaDiem").value);
+        formData.append("loaiCongViec", document.getElementById("loaiCongViec").value);
+        formData.append("mucLuong", document.getElementById("mucLuong").value);
+        formData.append("hanNop", document.getElementById("hanNop").value);
+        formData.append("soLuongTuyen", document.getElementById("soLuongTuyen").value);
+        formData.append("email", payload.email || localStorage.getItem("email") || "");
+        formData.append("idNguoiDang", idNhaTuyenDung);
+
+        // Nếu có file banner thì append
+        const bannerInput = document.getElementById("banner");
+        if (bannerInput.files.length > 0) {
+            formData.append("banner", bannerInput.files[0]);
+        }
 
         try {
             const res = await fetch(
-                `http://localhost:8080/api/nha-tuyen-dung/bai-dang?idNguoiDang=${idNhaTuyenDung}`, {
+                "http://localhost:8080/api/nha-tuyen-dung/bai-dang", {
                     method: "POST",
                     headers: {
-                        "Content-Type": "application/json",
                         "Authorization": `Bearer ${token}`
+                            // CHÚ Ý: không set Content-Type, để browser tự thêm boundary
                     },
-                    body: JSON.stringify(baiViet)
+                    body: formData
                 }
             );
 
@@ -93,14 +94,16 @@ document.addEventListener("DOMContentLoaded", function() {
                 alert("Đăng bài thành công!");
                 dangBaiForm.reset();
             } else {
-                const err = await res.text();
-                alert("Lỗi khi đăng bài: " + err);
+                const errText = await res.text();
+                alert("Lỗi khi đăng bài: " + errText);
             }
         } catch (err) {
+            console.error(err);
             alert("Lỗi kết nối đến server: " + err.message);
         }
     });
 });
+
 
 function dangXuat() {
     localStorage.clear();
