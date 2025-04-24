@@ -67,6 +67,9 @@ document.addEventListener("DOMContentLoaded", async function() {
                         if (label === 'Bài Viết Hướng Nghiệp') {
                             window.location.href = "http://127.0.0.1:5500/QuanTriVien/baiviethuongnghiep.htm"; // Chuyển sang trang admin.html
                         }
+                        if (label === 'Bài Tuyển Dụng') {
+                            window.location.href = "http://127.0.0.1:5500/QuanTriVien/baidang.html"; // Chuyển sang trang admin.html
+                        }
                     }
                 }
             }

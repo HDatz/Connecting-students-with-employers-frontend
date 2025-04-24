@@ -2,14 +2,19 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nhà Tuyển Dụng - Đại Nam</title>
-    <link rel="icon" type="image/x-icon" href="/NhaTuyenDung/lg.png">
-    <!-- Import Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/NhaTuyenDung/css/appntd.css">
-    <script src="/NhaTuyenDung/js/dangbai.js"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Đăng Bài Tuyển Dụng – Đại Nam</title>
+    <link rel="icon" href="/NhaTuyenDung/lg.png" type="image/png" />
+
+    <!-- Google Fonts + Font Awesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="/NhaTuyenDung/css/dangbai.css" />
+    <!-- JS -->
+    <script defer src="/NhaTuyenDung/js/dangbai.js"></script>
 </head>
 
 <body>
@@ -36,41 +41,70 @@
         </header>
     </div>
 
-    <form id="dangBaiForm" enctype="multipart/form-data">
-        <label>Tiêu đề:</label><br>
-        <input type="text" id="tieuDe" required><br><br>
+    <main class="container grid-2">
+        <!-- Form đăng bài -->
+        <section class="card form-card">
+            <h2 class="card-title"><i class="fa fa-pencil-alt"></i> Đăng Bài Tuyển Dụng</h2>
+            <form id="dangBaiForm" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="tieuDe">Tiêu đề</label>
+                    <input type="text" id="tieuDe" placeholder="Nhập tiêu đề..." required />
+                </div>
+                <div class="form-group">
+                    <label for="moTa">Mô tả công việc</label>
+                    <textarea id="moTa" rows="4" placeholder="Mô tả chi tiết..." required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="yeuCau">Yêu cầu</label>
+                    <textarea id="yeuCau" rows="4" placeholder="Yêu cầu công việc..." required></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="diaDiem">Địa điểm</label>
+                        <input type="text" id="diaDiem" placeholder="Ví dụ: Hà Nội" />
+                    </div>
+                    <div class="form-group">
+                        <label for="loaiCongViec">Loại công việc</label>
+                        <select id="loaiCongViec" required>
+                            <option value="">Chọn loại</option>
+                            <option value="TOAN_THOI_GIAN">Toàn thời gian</option>
+                            <option value="BAN_THOI_GIAN">Bán thời gian</option>
+                            <option value="THUC_TAP">Thực tập</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="mucLuong">Mức lương</label>
+                        <input type="text" id="mucLuong" placeholder="Ví dụ: 5-10 triệu" />
+                    </div>
+                    <div class="form-group">
+                        <label for="soLuongTuyen">Số lượng</label>
+                        <input type="number" id="soLuongTuyen" min="1" placeholder="1" required />
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="hanNop">Hạn nộp hồ sơ</label>
+                        <input type="date" id="hanNop" />
+                    </div>
+                    <div class="form-group">
+                        <label for="banner">Banner (ảnh)</label>
+                        <input type="file" id="banner" accept="image/*" />
+                    </div>
+                </div>
+                <button class="btn-primary" type="submit"><i class="fa fa-paper-plane"></i> Đăng Bài</button>
+            </form>
+        </section>
 
-        <label>Mô tả công việc:</label><br>
-        <textarea id="moTa" rows="5" required></textarea><br><br>
-
-        <label>Yêu cầu:</label><br>
-        <textarea id="yeuCau" rows="5" required></textarea><br><br>
-
-        <label>Địa điểm:</label><br>
-        <input type="text" id="diaDiem"><br><br>
-
-        <label>Loại công việc:</label><br>
-        <select id="loaiCongViec" name="loaiCongViec" required>
-          <option value="TOAN_THOI_GIAN">Toàn thời gian</option>
-          <option value="BAN_THOI_GIAN">Bán thời gian</option>
-          <option value="THUC_TAP">Thực tập</option>
-        </select><br><br>
-
-        <label>Mức lương:</label><br>
-        <input type="text" id="mucLuong"><br><br>
-
-        <label>Hạn nộp hồ sơ:</label><br>
-        <input type="date" id="hanNop"><br><br>
-
-        <label>Số lượng tuyển:</label><br>
-        <input type="number" id="soLuongTuyen" required min="1"><br><br>
-
-        <label for="banner">Banner (ảnh đại diện):</label><br/>
-        <input type="file" id="banner" accept="image/*" /><br/><br/>
-
-        <button type="submit">Đăng Bài</button>
-    </form>
-
+        <!-- Danh sách bài đã đăng -->
+        <section class="card list-card">
+            <h2 class="card-title"><i class="fa fa-list"></i> Các Bài Đã Đăng</h2>
+            <div id="dsBaiDang" class="posts-list">
+                <!-- JS sẽ render các card bài đăng ở đây -->
+            </div>
+        </section>
+    </main>
 </body>
 
 </html>
