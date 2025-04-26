@@ -50,11 +50,33 @@
     <!-- Main Content -->
     <main class="companies">
         <div class="container">
-            <h3>Bài Tuyển Dụng</h3>
-            <div class="company-list">
-            </div>
+            <h3 class="section-title">Bài Tuyển Dụng</h3>
+            <div class="company-list"></div>
         </div>
     </main>
+
+    <!-- Modal Detail -->
+    <div id="post-detail-modal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="close-btn"><i class="fas fa-times"></i></button>
+            <img id="detail-banner" class="detail-banner" src="" alt="Banner" />
+            <div class="detail-body">
+                <h2 id="detail-title"></h2>
+                <p id="detail-description" class="detail-text"></p>
+                <ul class="detail-info">
+                    <li><strong>Yêu cầu:</strong> <span id="detail-requirements"></span></li>
+                    <li><strong>Địa điểm:</strong> <span id="detail-location"></span></li>
+                    <li><strong>Loại công việc:</strong> <span id="detail-type"></span></li>
+                    <li><strong>Mức lương:</strong> <span id="detail-salary"></span></li>
+                    <li><strong>Ngày đăng:</strong> <span id="detail-posted"></span></li>
+                    <li><strong>Hạn nộp:</strong> <span id="detail-deadline"></span></li>
+                    <li><strong>Số lượng tuyển:</strong> <span id="detail-quantity"></span></li>
+                </ul>
+                <button id="apply-btn" class="btn apply-btn">Ứng tuyển</button>
+            </div>
+        </div>
+    </div>
+
 
     <aside class="sci">
         <ul>

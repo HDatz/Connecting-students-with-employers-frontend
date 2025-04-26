@@ -2,14 +2,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const companyList = document.querySelector('.company-list');
     const loginItem = document.getElementById('login-item');
     const token = localStorage.getItem('token');
-    const tenSinhVien = localStorage.getItem('ten');
+    const sinhVienId = localStorage.getItem('userId');
+    const tenSV = localStorage.getItem('ten');
 
-    // Hiển thị dropdown khi đã login
-    if (token && tenSinhVien && loginItem) {
+    // Backend URL
+    const API_BASE_URL = 'http://localhost:8080';
+
+    // Dropdown login
+    if (token && tenSV) {
         loginItem.classList.add('dropdown');
         loginItem.innerHTML = `
         <a href="#" class="dropdown-toggle">
-          <span id="ten-sv">${tenSinhVien}</span>
+          ${tenSV} <i class="fas "></i>
         </a>
         <ul class="dropdown-menu">
           <li><a href="/SinhVien/taikhoan.html">Tài Khoản</a></li>
@@ -23,103 +27,127 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Tạo modal hiển thị chi tiết
-    const modalOverlay = document.createElement('div');
-    modalOverlay.id = 'post-detail-modal';
-    modalOverlay.className = 'modal-overlay';
-    modalOverlay.innerHTML = `
-      <div class="modal-content">
-        <span class="close-btn">&times;</span>
-        <img id="detail-banner" class="detail-banner" src="" alt="Banner">
-        <div class="detail-body">
-          <h2 id="detail-title"></h2>
-          <p id="detail-description"></p>
-          <p><strong>Yêu cầu:</strong> <span id="detail-requirements"></span></p>
-          <p><strong>Địa điểm:</strong> <span id="detail-location"></span></p>
-          <p><strong>Loại công việc:</strong> <span id="detail-type"></span></p>
-          <p><strong>Mức lương:</strong> <span id="detail-salary"></span></p>
-          <p><strong>Ngày đăng:</strong> <span id="detail-posted"></span></p>
-          <p><strong>Hạn nộp:</strong> <span id="detail-deadline"></span></p>
-          <p><strong>Số lượng tuyển:</strong> <span id="detail-quantity"></span></p>
-        </div>
-      </div>
-    `;
-    document.body.appendChild(modalOverlay);
+    // Modal & Apply init
+    const modal = document.getElementById('post-detail-modal');
+    const applyBtn = document.getElementById('apply-btn');
+    applyBtn.style.display = 'none'; // hide by default
+    let appliedPosts = [];
 
-    // Đóng modal khi nhấn close hoặc click ngoài
-    modalOverlay.querySelector('.close-btn').addEventListener('click', () => modalOverlay.style.display = 'none');
-    modalOverlay.addEventListener('click', e => {
-        if (e.target === modalOverlay) modalOverlay.style.display = 'none';
-    });
+    // Fetch already applied posts if logged in
+    if (token && sinhVienId) {
+        fetch(`${API_BASE_URL}/api/SinhVien/ung-tuyen?sinhVienId=${sinhVienId}`, {
+                headers: { 'Authorization': `Bearer ${token}` }
+            })
+            .then(r => r.ok ? r.json() : [])
+            .then(list => appliedPosts = list.map(d => d.baiDangTuyenDung.idBaiDang))
+            .catch(console.error);
+    }
 
-    // Fetch và hiển thị danh sách bài tuyển dụng
-    fetch('http://127.0.0.1:8080/api/SinhVien/bai-dang', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            }
+    // Fetch all posts
+    fetch(`${API_BASE_URL}/api/SinhVien/bai-dang`, {
+            headers: token ? { 'Authorization': `Bearer ${token}` } : {}
         })
-        .then(res => {
-            if (!res.ok) {
-                return res.text().then(text => {
-                    console.error('Server response error:', text);
-                    throw new Error(`HTTP ${res.status}`);
-                });
-            }
-            return res.json();
-        })
-        .then(data => {
-            if (!Array.isArray(data)) {
-                console.error('Unexpected response format:', data);
-                return;
-            }
-            renderList(data);
-        })
-        .catch(err => console.error('Lỗi khi fetch bài đăng:', err));
+        .then(r => r.ok ? r.json() : Promise.reject('Cannot load posts'))
+        .then(posts => renderList(posts))
+        .catch(err => console.error(err));
 
     function renderList(posts) {
         companyList.innerHTML = '';
         posts.forEach(post => {
-            const item = document.createElement('div');
-            item.className = 'company-item';
-            const bannerUrl = `http://127.0.0.1:8080/api/SinhVien/banners/${post.banner}`;
-            item.innerHTML = `
-                <img src="${bannerUrl}" alt="Banner">
-                <h4>${post.tieuDe}</h4>
-                <p>${post.moTa.slice(0, 80)}...</p>
-                <button class="detail-btn" data-id="${post.idBaiDang}">Xem chi tiết</button>
-            `;
-            companyList.appendChild(item);
+            const card = document.createElement('div');
+            card.className = 'company-item';
+            const bannerUrl = post.banner ?
+                `${API_BASE_URL}/api/SinhVien/banners/${post.banner}` :
+                '/default-banner.jpg';
+            card.innerHTML = `
+          <img src="${bannerUrl}" alt="Banner" />
+          <div class="info">
+            <h4>${post.tieuDe}</h4>
+            <p>${post.moTa.slice(0,100)}...</p>
+            <button class="btn detail-btn" data-id="${post.idBaiDang}">Xem chi tiết</button>
+          </div>
+        `;
+            companyList.append(card);
         });
-        bindDetailButtons(posts);
-    }
-
-    function bindDetailButtons(posts) {
         document.querySelectorAll('.detail-btn').forEach(btn => {
             btn.addEventListener('click', () => {
-                const postId = parseInt(btn.getAttribute('data-id'), 10);
-                const post = posts.find(p => p.idBaiDang === postId);
-                if (post) showDetail(post);
+                const pid = +btn.dataset.id;
+                const post = posts.find(p => p.idBaiDang === pid);
+                showDetail(post);
             });
         });
     }
 
     function showDetail(post) {
-        modalOverlay.style.display = 'flex';
-        const bannerUrl = `http://127.0.0.1:8080/api/SinhVien/banners/${post.banner}`;
-        modalOverlay.querySelector('#detail-banner').src = bannerUrl;
-        modalOverlay.querySelector('#detail-title').textContent = post.tieuDe;
-        modalOverlay.querySelector('#detail-description').textContent = post.moTa;
-        modalOverlay.querySelector('#detail-requirements').textContent = post.yeuCau;
-        modalOverlay.querySelector('#detail-location').textContent = post.diaDiem;
-        modalOverlay.querySelector('#detail-type').textContent = post.loaiCongViec;
-        modalOverlay.querySelector('#detail-salary').textContent = post.mucLuong;
-        modalOverlay.querySelector('#detail-posted').textContent = new Date(post.ngayDang).toLocaleDateString();
-        modalOverlay.querySelector('#detail-deadline').textContent = new Date(post.hanNop).toLocaleDateString();
-        modalOverlay.querySelector('#detail-quantity').textContent = post.soLuongTuyen;
+        // Populate modal content
+        document.getElementById('detail-banner').src = post.banner ?
+            `${API_BASE_URL}/api/SinhVien/banners/${post.banner}` :
+            '/default-banner.jpg';
+        document.getElementById('detail-title').textContent = post.tieuDe;
+        document.getElementById('detail-description').textContent = post.moTa;
+        document.getElementById('detail-requirements').textContent = post.yeuCau;
+        document.getElementById('detail-location').textContent = post.diaDiem;
+        document.getElementById('detail-type').textContent = post.loaiCongViec;
+        document.getElementById('detail-salary').textContent = post.mucLuong;
+        document.getElementById('detail-posted').textContent = new Date(post.ngayDang).toLocaleDateString();
+        document.getElementById('detail-deadline').textContent = new Date(post.hanNop).toLocaleDateString();
+        document.getElementById('detail-quantity').textContent = post.soLuongTuyen;
+
+        // Show modal
+        modal.style.display = 'flex';
+
+        // Show apply button only if logged in
+        if (token) {
+            applyBtn.style.display = 'block';
+            if (appliedPosts.includes(post.idBaiDang)) {
+                applyBtn.textContent = 'Đã Ứng tuyển';
+                applyBtn.disabled = true;
+            } else {
+                applyBtn.textContent = 'Ứng tuyển';
+                applyBtn.disabled = false;
+            }
+        } else {
+            applyBtn.style.display = 'none';
+        }
+        applyBtn.dataset.id = post.idBaiDang;
     }
+
+    // Close modal
+    document.querySelector('.close-btn').addEventListener('click', () => modal.style.display = 'none');
+    modal.addEventListener('click', e => e.target === modal && (modal.style.display = 'none'));
+
+    // Apply post
+    applyBtn.addEventListener('click', () => {
+        const pid = +applyBtn.dataset.id;
+        const sinhVienId = localStorage.getItem('userId');
+        const token = localStorage.getItem('token');
+
+        if (!sinhVienId || !token) {
+            alert('Bạn cần đăng nhập trước khi ứng tuyển!');
+            window.location.href = '/login.html';
+            return;
+        }
+
+        fetch(`${API_BASE_URL}/api/SinhVien/ung-tuyen?sinhVienId=${sinhVienId}&baiDangId=${pid}`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(r => r.ok ? r.json() : r.text().then(t => { throw new Error(t); }))
+            .then(() => {
+                alert('Ứng tuyển thành công!');
+                appliedPosts.push(pid);
+                applyBtn.textContent = 'Đã Ứng tuyển';
+                applyBtn.disabled = true;
+                modal.style.display = 'none';
+            })
+            .catch(err => alert('Lỗi: ' + err.message));
+    });
 });
+
+
 
 
 function dangXuat() {
