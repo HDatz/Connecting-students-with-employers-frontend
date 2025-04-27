@@ -1,0 +1,424 @@
+@import url('https://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700&display=swap');
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'PT Sans Narrow', sans-serif;
+    background: #fff;
+    color: #333;
+    line-height: 1.6;
+}
+
+
+/* Container dùng để căn giữa nội dung */
+
+.container1 {
+    width: 100%;
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+
+/* Header */
+
+.header {
+    position: sticky;
+    top: 0;
+    background: #fff;
+    z-index: 100;
+}
+
+.header .container1 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+}
+
+.header .logo {
+    font-size: 2em;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin: 0;
+    color: orange;
+}
+
+.header .logo a {
+    text-decoration: none;
+    color: orange;
+}
+
+.header nav ul {
+    display: flex;
+    list-style: none;
+    margin: 0 10px;
+    padding: 0;
+}
+
+.header nav ul li {
+    margin: 0 15px;
+}
+
+.header nav ul li a {
+    text-decoration: none;
+    font-size: 1.2em;
+    color: orange;
+    padding: 5px 10px;
+    letter-spacing: 2px;
+    transition: background 0.3s ease;
+}
+
+.header nav ul li a:hover,
+.header nav ul li a.active {
+    background: orange;
+    color: #fff;
+    border-radius: 4px;
+}
+
+
+/* tên của sinh viên */
+
+.header ul li.dropdown {
+    position: relative;
+}
+
+.header ul li.dropdown .dropdown-toggle {
+    cursor: pointer;
+    padding: 5px 10px;
+    color: rgb(219, 10, 38);
+    font-size: 1.2em;
+    text-decoration: none;
+    letter-spacing: 2px;
+}
+
+.header ul li.dropdown .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: white;
+    min-width: 160px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 999;
+    display: none;
+    flex-direction: column;
+    padding: 0;
+    margin: 0;
+    border-radius: 4px;
+}
+
+.header ul li.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.header ul li.dropdown .dropdown-menu li {
+    list-style: none;
+    border-bottom: 1px solid #eee;
+}
+
+.header ul li.dropdown .dropdown-menu li:last-child {
+    border-bottom: none;
+}
+
+
+/* Link trong dropdown */
+
+.header ul li.dropdown .dropdown-menu li a {
+    display: block;
+    padding: 10px 15px;
+    color: orange;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+    font-size: 1.2em;
+}
+
+.header ul li.dropdown .dropdown-menu li a:hover {
+    background-color: #f1f1f1;
+    color: orange;
+}
+
+
+/* Phong cách cho tên sinh viên */
+
+#ten-sv {
+    color: orange;
+    /* Màu vàng khi không hover */
+    transition: color 0.3s ease, border 0.3s ease;
+    padding: 2px 5px;
+    /* Thêm khoảng cách cho viền */
+    border-radius: 4px;
+    /* Viền bo tròn */
+}
+
+
+/* Khi hover vào tên sinh viên */
+
+#ten-sv:hover {
+    color: white;
+}
+
+.container {
+    width: 90%;
+    margin: 30px auto;
+}
+
+.section-title {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+}
+
+.application-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.application-card {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    transition: all 0.3s ease;
+}
+
+.application-card:hover {
+    transform: translateY(-5px);
+}
+
+.application-card h4 {
+    font-size: 1.4rem;
+    color: #007bff;
+    margin-bottom: 10px;
+}
+
+.application-card p {
+    margin: 5px 0;
+}
+
+.status {
+    font-weight: bold;
+}
+
+.status.cho-duyet {
+    color: orange;
+}
+
+.status.da-xem {
+    color: blue;
+}
+
+.status.da-chap-nhan {
+    color: green;
+}
+
+.status.bi-tu-choi {
+    color: red;
+}
+
+.card-actions {
+    margin-top: 15px;
+}
+
+.btn {
+    padding: 8px 16px;
+    margin-right: 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.btn-light {
+    background: #007bff;
+    color: white;
+}
+
+.btn-danger {
+    background: #dc3545;
+    color: white;
+}
+
+.btn-secondary {
+    background: gray;
+    color: white;
+}
+
+
+/* Modal */
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-overlay:not(.hidden) {
+    display: flex;
+}
+
+.modal-content {
+    background: white;
+    padding: 30px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.modal-content.small {
+    max-width: 300px;
+}
+
+.modal-actions {
+    margin-top: 20px;
+}
+
+
+/* Detail Modal */
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    z-index: 1000;
+}
+
+.modal-overlay:not(.hidden) {
+    display: flex;
+}
+
+.modal-content.large {
+    background: #fff;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 900px;
+    padding: 30px;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 30px;
+    position: relative;
+}
+
+.close-detail {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: transparent;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: #888;
+}
+
+.detail-grid {
+    display: contents;
+}
+
+.job-info,
+.employer-info {
+    background: #fafafa;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.job-info h2 {
+    margin-top: 10px;
+    color: #0056b3;
+}
+
+.detail-banner {
+    width: 100%;
+    border-radius: 6px;
+    margin-bottom: 15px;
+}
+
+.job-info ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 15px;
+}
+
+.job-info ul li {
+    margin: 8px 0;
+    color: #555;
+}
+
+.employer-info {
+    text-align: center;
+}
+
+.employer-avatar {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 15px;
+}
+
+.employer-info h3 {
+    margin: 10px 0;
+    font-size: 1.3rem;
+    color: #333;
+}
+
+.employer-info p {
+    margin: 6px 0;
+    color: #555;
+}
+
+.employer-info a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.employer-info a:hover {
+    text-decoration: underline;
+}
+
+
+/* Social Icons */
+
+.sci {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+}
+
+.sci ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.sci ul li {
+    margin: 5px 0;
+}
+
+.sci ul li a {
+    font-size: 1.5em;
+    color: #141514;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.sci ul li a:hover {
+    color: orange;
+}

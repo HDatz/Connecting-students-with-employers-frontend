@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="utf-8">
+    <title>University Dai Nam</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Font Awesome & Google Fonts -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700&display=swap" rel="stylesheet">
+    <!-- CSS của bạn -->
+    <link rel="stylesheet" href="/SinhVien/css/totaldonungtuyen.css">
+    <link rel="icon" type="image/x-icon" href="/NhaTuyenDung/lg.png">
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container1">
+            <h2 class="logo"><a href="/">Đại Nam</a></h2>
+            <nav>
+                <ul>
+                    <li><a href="/SinhVien/trangchu.html">Trang Chủ</a></li>
+                    <li><a href="/SinhVien/gioithieu.html">Giới Thiệu</a></li>
+                    <li><a href="/SinhVien/ntdsv.html">Nhà Tuyển Dụng</a></li>
+                    <li><a href="/SinhVien/bvhn.html">Bài Viết</a></li>
+                    <li><a href="/SinhVien/tuyendung.html">Tuyển Dụng</a></li>
+                    <li id="login-item"><a href="/SinhVien/login.html">Đăng Nhập</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content: Danh sách đơn ứng tuyển -->
+    <main class="applications">
+        <div class="container">
+            <h3 class="section-title">Đơn Ứng Tuyển Của Tôi</h3>
+            <div class="application-list"></div>
+        </div>
+    </main>
+
+    <!-- Detail Modal -->
+    <div id="detail-modal" class="modal-overlay hidden">
+        <div class="modal-content large">
+            <button class="close-detail"><i class="fas fa-times"></i></button>
+            <div class="detail-grid">
+                <!-- Job Info -->
+                <section class="job-info">
+                    <img id="detail-banner" src="" alt="Banner" class="detail-banner" />
+                    <h2 id="detail-title"></h2>
+                    <p id="detail-description" class="detail-text"></p>
+                    <ul>
+                        <li><strong>Yêu cầu:</strong> <span id="detail-requirements"></span></li>
+                        <li><strong>Địa điểm:</strong> <span id="detail-location"></span></li>
+                        <li><strong>Loại công việc:</strong> <span id="detail-type"></span></li>
+                        <li><strong>Mức lương:</strong> <span id="detail-salary"></span></li>
+                        <li><strong>Ngày đăng:</strong> <span id="detail-posted"></span></li>
+                        <li><strong>Hạn nộp:</strong> <span id="detail-deadline"></span></li>
+                        <li><strong>Số lượng tuyển:</strong> <span id="detail-quantity"></span></li>
+                    </ul>
+                </section>
+                <!-- Employer Info -->
+                <section class="employer-info">
+                    <img id="employer-avatar" src="" alt="Avatar" class="employer-avatar" />
+                    <h3 id="employer-name"></h3>
+                    <p><i class="fas fa-map-marker-alt"></i> <span id="employer-location"></span></p>
+                    <p><i class="fas fa-phone"></i> <span id="employer-phone"></span></p>
+                    <p><i class="fas fa-envelope"></i> <span id="employer-email"></span></p>
+                    <p><i class="fas fa-globe"></i>
+                        <a id="employer-website" href="#" target="_blank"></a>
+                    </p>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cancel Modal -->
+    <div id="cancel-modal" class="modal-overlay hidden">
+        <div class="modal-content small">
+            <p>Bạn có chắc chắn muốn hủy đơn ứng tuyển này?</p>
+            <div class="modal-actions">
+                <button id="confirm-cancel" class="btn">Xác nhận</button>
+                <button id="close-cancel" class="btn btn-secondary">Hủy</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Social Icons -->
+    <aside class="sci">
+        <ul>
+            <li><a href="https://www.facebook.com/DAINAM.EDU.VN"><i class="fab fa-facebook"></i></a></li>
+            <li><a href="#"><i class="fas fa-user-graduate"></i></a></li>
+            <li><a href="https://www.linkedin.com/school/dainam"><i class="fab fa-linkedin"></i></a></li>
+            <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+        </ul>
+    </aside>
+
+    <script src="/SinhVien/js/totaldonungtuyen.js"></script>
+</body>
+
+</html>
