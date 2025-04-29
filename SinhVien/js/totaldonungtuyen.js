@@ -70,7 +70,7 @@ fetch(`${API_BASE}/ung-tuyen?sinhVienId=${sinhVienId}`, { headers: token ? { 'Au
     document.getElementById('detail-posted').textContent = new Date(post.ngayDang).toLocaleDateString();
     document.getElementById('detail-deadline').textContent = new Date(post.hanNop).toLocaleDateString();
     document.getElementById('detail-quantity').textContent = post.soLuongTuyen;
-    // Employer Avatar Path update
+
     document.getElementById('employer-avatar').src = emp.avatar ? `http://localhost:8080/api/SinhVien/company_logos/${emp.avatar}` : '/default-avatar.png';
     document.getElementById('employer-name').textContent = emp.tenCongTy;
     document.getElementById('employer-location').textContent = emp.diaChi;

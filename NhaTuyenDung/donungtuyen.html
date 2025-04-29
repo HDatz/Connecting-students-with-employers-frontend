@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hồ Sơ Ứng Viên – Đại Nam</title>
+    <link rel="icon" href="/NhaTuyenDung/lg.png" type="image/png" />
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" />
+    <!-- CSS -->
+    <link rel="stylesheet" href="/NhaTuyenDung/css/donungtuyen.css" />
+    <script defer src="/NhaTuyenDung/js/donungtuyen.js"></script>
+</head>
+
+<body>
+    <div id="wrapper">
+        <!-- Header -->
+        <header id="header">
+            <div class="container">
+                <div id="logo">
+                    <a href="/"><img src="/assets/images/logindn.jpg" alt="DaiNam.vn"></a>
+                </div>
+                <nav>
+                    <ul id="main-menu">
+                        <li><a href="/NhaTuyenDung/index.html">Trang chủ</a></li>
+                        <li><a href="/NhaTuyenDung/dangbai.html">Đăng Bài</a></li>
+                        <li><a href="/NhaTuyenDung/quanly-ungvien.html" class="active">Hồ sơ ứng viên</a></li>
+                        <li><a href="/NhaTuyenDung/hosontd.html">Hồ sơ NTD</a></li>
+                        <li><a href="/NhaTuyenDung/baiviettuyendung.html">Bài Viết Hướng Nghiệp</a></li>
+                        <li id="login-item"><a href="/NhaTuyenDung/login.html">Đăng Nhập</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Main -->
+        <main class="container">
+            <h2>Quản lý Ứng viên</h2>
+
+            <!-- Chọn bài đăng -->
+            <div class="form-group">
+                <label for="select-post"><strong>Chọn Bài Đăng:</strong></label>
+                <select id="select-post"></select>
+            </div>
+            <!-- Thanh tìm kiếm ứng viên -->
+            <div class="form-group search-group">
+                <input type="search" id="search-input" placeholder="Tìm kiếm ứng viên theo tên..." />
+            </div>
+
+            <!-- Danh sách ứng viên -->
+            <div id="applicant-list"></div>
+        </main>
+
+        <!-- Modal Chi Tiết -->
+        <div id="detail-modal" class="modal-overlay hidden">
+            <div class="modal-content">
+                <button class="close-btn"><i class="fas fa-times"></i></button>
+                <div class="grid grid-2">
+                    <!-- Sinh viên -->
+                    <section>
+                        <h3>Thông tin Sinh Viên</h3>
+                        <p><strong>Họ và tên:</strong> <span id="sv-name"></span></p>
+                        <p><strong>Email:</strong> <span id="sv-email"></span></p>
+                        <p><strong>Ngành Học:</strong> <span id="sv-major"></span></p>
+                        <p><strong>Địa chỉ:</strong> <span id="sv-address"></span></p>
+                        <p><strong>Năm TN:</strong> <span id="sv-gradyear"></span></p>
+                        <p><strong>CV:</strong> <a id="sv-cv" href="#" target="_blank">Xem CV</a></p>
+                        <p><strong>Ngày ứng tuyển:</strong> <span id="sv-applied"></span></p>
+                        <p><strong>Trạng thái:</strong> <span id="sv-status"></span></p>
+                    </section>
+                    <!-- Bài đăng -->
+                    <section>
+                        <h3>Thông tin Bài Đăng</h3>
+                        <p><strong>Tiêu đề:</strong> <span id="post-title"></span></p>
+                        <p><strong>Mô tả:</strong> <span id="post-desc"></span></p>
+                        <p><strong>Yêu cầu:</strong> <span id="post-req"></span></p>
+                        <p><strong>Địa điểm:</strong> <span id="post-loc"></span></p>
+                        <p><strong>Loại:</strong> <span id="post-type"></span></p>
+                        <p><strong>Mức lương:</strong> <span id="post-salary"></span></p>
+                        <p><strong>Ngày đăng:</strong> <span id="post-date"></span></p>
+                        <p><strong>Hạn nộp:</strong> <span id="post-deadline"></span></p>
+                        <p><strong>Công ty:</strong> <span id="post-company"></span></p>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
