@@ -143,6 +143,10 @@ document.addEventListener("DOMContentLoaded", async() => {
 
     function showDetail(app) {
         // Sinh viên
+        const svAvatar = document.getElementById("sv-avatar");
+        svAvatar.src = app.sinhVien.avatar
+            ? `http://localhost:8080/api/QuanTriVien/avatars/${app.sinhVien.avatar}`
+            : '/default-avatar.png';
         document.getElementById("sv-name").textContent = app.sinhVien.hoTen;
         document.getElementById("sv-email").textContent = app.sinhVien.email;
         document.getElementById("sv-major").textContent = app.sinhVien.nganhHoc;
@@ -152,6 +156,14 @@ document.addEventListener("DOMContentLoaded", async() => {
         document.getElementById("sv-applied").textContent = new Date(app.ngayUngTuyen).toLocaleString();
         document.getElementById("sv-status").textContent = app.trangThai;
         // Bài đăng
+
+        const postBanner = document.getElementById("post-banner");
+        if (postBanner) {
+        postBanner.onerror = () => postBanner.src = '/default-banner.jpg';
+        postBanner.src = app.baiDangTuyenDung.banner
+            ? `http://localhost:8080/api/SinhVien/banners/${app.baiDangTuyenDung.banner}`
+            : '/default-banner.jpg';
+        }
         document.getElementById("post-title").textContent = app.baiDangTuyenDung.tieuDe;
         document.getElementById("post-desc").textContent = app.baiDangTuyenDung.moTa;
         document.getElementById("post-req").textContent = app.baiDangTuyenDung.yeuCau;
