@@ -46,6 +46,7 @@ appList.append(card);
 });
 document.querySelectorAll('.detail-btn').forEach(btn => btn.addEventListener('click', () => showDetail(btn.dataset.id)));
 document.querySelectorAll('.cancel-btn').forEach(btn => btn.addEventListener('click', () => confirmCancel(btn.dataset.id)));
+
 }
 
 // Detail modal handlers
@@ -70,6 +71,17 @@ fetch(`${API_BASE}/ung-tuyen?sinhVienId=${sinhVienId}`, { headers: token ? { 'Au
     document.getElementById('detail-posted').textContent = new Date(post.ngayDang).toLocaleDateString();
     document.getElementById('detail-deadline').textContent = new Date(post.hanNop).toLocaleDateString();
     document.getElementById('detail-quantity').textContent = post.soLuongTuyen;
+    const cvRow = document.getElementById('cv-row');
+    const cvLink = document.getElementById('detail-cv-link');
+
+    if (app.duongDanCv) {
+        cvRow.classList.remove('hidden');
+        cvLink.href = `http://localhost:8080/api/nha-tuyen-dung/cv/${app.duongDanCv}`;
+    } else {
+        cvRow.classList.add('hidden');
+        cvLink.href = '#';
+    }
+
 
     document.getElementById('employer-avatar').src = emp.avatar ? `http://localhost:8080/api/SinhVien/company_logos/${emp.avatar}` : '/default-avatar.png';
     document.getElementById('employer-name').textContent = emp.tenCongTy;

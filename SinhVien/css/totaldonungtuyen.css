@@ -422,3 +422,7 @@ body {
 .sci ul li a:hover {
     color: orange;
 }
+
+.hidden {
+    display: none;
+}
