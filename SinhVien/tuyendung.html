@@ -73,6 +73,12 @@
                     <li><strong>Số lượng tuyển:</strong> <span id="detail-quantity"></span></li>
                 </ul>
                 <button id="apply-btn" class="btn apply-btn">Ứng tuyển</button>
+                <div id="cv-upload" style="display: none; margin-top: 1rem;">
+                    <form id="apply-form" enctype="multipart/form-data">
+                        <input type="file" id="cv-file" name="duongDanCv" accept="application/pdf" required />
+                        <button type="submit" class="btn apply-btn">Gửi CV</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

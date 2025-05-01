@@ -152,7 +152,6 @@ document.addEventListener("DOMContentLoaded", async() => {
         document.getElementById("sv-major").textContent = app.sinhVien.nganhHoc;
         document.getElementById("sv-address").textContent = app.sinhVien.diaChi;
         document.getElementById("sv-gradyear").textContent = app.sinhVien.namTotNghiep;
-        document.getElementById("sv-cv").href = app.sinhVien.duongDanCv;
         document.getElementById("sv-applied").textContent = new Date(app.ngayUngTuyen).toLocaleString();
         document.getElementById("sv-status").textContent = app.trangThai;
         // Bài đăng
@@ -174,6 +173,19 @@ document.addEventListener("DOMContentLoaded", async() => {
         document.getElementById("post-deadline").textContent = new Date(app.baiDangTuyenDung.hanNop).toLocaleDateString();
         document.getElementById("post-company").textContent = app.baiDangTuyenDung.nhaTuyenDung.tenCongTy;
         modal.classList.remove("hidden");
+
+        const svCvLink = document.getElementById("sv-cv-link");
+        if (app.duongDanCv) {
+            svCvLink.href        = `http://localhost:8080/api/nha-tuyen-dung/cv/${app.duongDanCv}`;
+            svCvLink.textContent = "Xem CV (PDF)";
+            svCvLink.style.display = "inline";
+            svCvLink.target      = "_blank";
+        } else {
+            svCvLink.href        = "#";
+            svCvLink.textContent = "Không có CV";
+            svCvLink.style.display = "inline";
+            svCvLink.target    
+        }
     }
     closeBtn.onclick = () => modal.classList.add("hidden");
     modal.onclick = e => { if (e.target === modal) modal.classList.add("hidden"); };

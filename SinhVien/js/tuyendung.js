@@ -30,8 +30,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Modal & Apply init
     const modal = document.getElementById('post-detail-modal');
-    const applyBtn = document.getElementById('apply-btn');
-    applyBtn.style.display = 'none'; // hide by default
+    const showApplyBtn = document.getElementById('apply-btn'); // nút Ứng tuyển bước 1
+    const cvUploadDiv = document.getElementById('cv-upload'); // div chứa form upload (ẩn sẵn)
+    const applyForm = document.getElementById('apply-form'); // form bước 2
+    showApplyBtn.style.display = 'none';
+    cvUploadDiv.style.display = 'none';
+
     let appliedPosts = [];
 
     // Fetch already applied posts if logged in
@@ -40,7 +44,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 headers: { 'Authorization': `Bearer ${token}` }
             })
             .then(r => r.ok ? r.json() : [])
-            .then(list => appliedPosts = list.map(d => d.baiDangTuyenDung.idBaiDang))
+            .then(list => {
+                appliedPosts = list.map(d => d.baiDangTuyenDung.idBaiDang);
+            })
             .catch(console.error);
     }
 
@@ -94,66 +100,77 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('detail-deadline').textContent = new Date(post.hanNop).toLocaleDateString();
         document.getElementById('detail-quantity').textContent = post.soLuongTuyen;
 
+        // Store postId lên form
+        applyForm.dataset.postId = post.idBaiDang;
+
+        // Reset nút & form
+        showApplyBtn.textContent = 'Ứng tuyển';
+        showApplyBtn.disabled = appliedPosts.includes(post.idBaiDang);
+        showApplyBtn.style.display = token ? 'block' : 'none';
+        cvUploadDiv.style.display = 'none';
+        applyForm.reset();
+
         // Show modal
         modal.style.display = 'flex';
-
-        // Show apply button only if logged in
-        if (token) {
-            applyBtn.style.display = 'block';
-            if (appliedPosts.includes(post.idBaiDang)) {
-                applyBtn.textContent = 'Đã Ứng tuyển';
-                applyBtn.disabled = true;
-            } else {
-                applyBtn.textContent = 'Ứng tuyển';
-                applyBtn.disabled = false;
-            }
-        } else {
-            applyBtn.style.display = 'none';
-        }
-        applyBtn.dataset.id = post.idBaiDang;
     }
 
-    // Close modal
-    document.querySelector('.close-btn').addEventListener('click', () => modal.style.display = 'none');
-    modal.addEventListener('click', e => e.target === modal && (modal.style.display = 'none'));
+    // Bước 1: khi bấm nút Apply
+    showApplyBtn.addEventListener('click', () => {
+        showApplyBtn.style.display = 'none';
+        cvUploadDiv.style.display = 'block';
+    });
 
-    // Apply post
-    applyBtn.addEventListener('click', () => {
-        const pid = +applyBtn.dataset.id;
-        const sinhVienId = localStorage.getItem('userId');
-        const token = localStorage.getItem('token');
+    // Bước 2: gửi form upload CV
+    applyForm.addEventListener('submit', e => {
+        e.preventDefault();
 
+        // Kiểm tra đăng nhập
         if (!sinhVienId || !token) {
             alert('Bạn cần đăng nhập trước khi ứng tuyển!');
-            window.location.href = '/login.html';
+            window.location.href = '/SinhVien/login.html';
             return;
         }
 
-        fetch(`${API_BASE_URL}/api/SinhVien/ung-tuyen?sinhVienId=${sinhVienId}&baiDangId=${pid}`, {
+        const fileInput = document.getElementById('cv-file');
+        if (!fileInput.files[0]) {
+            alert('Vui lòng chọn file CV (PDF)!');
+            return;
+        }
+
+        const pid = applyForm.dataset.postId;
+        const formData = new FormData();
+        formData.append('sinhVienId', sinhVienId);
+        formData.append('baiDangId', pid);
+        formData.append('duongDanCv', fileInput.files[0]);
+
+        fetch(`${API_BASE_URL}/api/SinhVien/ung-tuyen`, {
                 method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json'
-                }
+                headers: { 'Authorization': `Bearer ${token}` },
+                body: formData
             })
-            .then(r => r.ok ? r.json() : r.text().then(t => { throw new Error(t); }))
+            .then(res => {
+                if (!res.ok) return res.text().then(t => { throw new Error(t); });
+                return res.json();
+            })
             .then(() => {
                 alert('Ứng tuyển thành công!');
-                appliedPosts.push(pid);
-                applyBtn.textContent = 'Đã Ứng tuyển';
-                applyBtn.disabled = true;
+                appliedPosts.push(+pid);
                 modal.style.display = 'none';
             })
             .catch(err => alert('Lỗi: ' + err.message));
     });
+
+    // Close modal
+    document.querySelector('.close-btn').addEventListener('click', () => {
+        modal.style.display = 'none';
+    });
+    modal.addEventListener('click', e => {
+        if (e.target === modal) modal.style.display = 'none';
+    });
 });
 
-
-
-
+// Hàm logout
 function dangXuat() {
-    // Xóa các thông tin đăng nhập khi đăng xuất
     localStorage.clear();
-    // Chuyển hướng về trang đăng nhập
     window.location.href = "/SinhVien/login.html";
 }
