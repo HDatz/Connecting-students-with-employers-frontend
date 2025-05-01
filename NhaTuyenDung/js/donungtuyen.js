@@ -18,11 +18,11 @@ document.addEventListener("DOMContentLoaded", async() => {
             if (ten) {
                 loginItem.classList.add("dropdown");
                 loginItem.innerHTML = `
-        <a href="#" class="dropdown-toggle"><i class="fa"></i> ${ten}</a>
-        <ul class="dropdown-menu">
-          <li><a href="/NhaTuyenDung/sua-thong-tin.html">Tài Khoản</a></li>
-          <li><a href="#" id="logout-btn">Đăng Xuất</a></li>
-        </ul>`;
+                <a href="#" class="dropdown-toggle"><i class="fa"></i> ${ten}</a>
+                <ul class="dropdown-menu">
+                <li><a href="/NhaTuyenDung/sua-thong-tin.html">Tài Khoản</a></li>
+                <li><a href="#" id="logout-btn">Đăng Xuất</a></li>
+                </ul>`;
                 document.getElementById("logout-btn").onclick = () => {
                     localStorage.clear();
                     location.href = "/NhaTuyenDung/login.html";
@@ -90,38 +90,44 @@ document.addEventListener("DOMContentLoaded", async() => {
                     return;
                 }
                 listDiv.innerHTML = apps.map(app => `
-        <div class="card grid grid-2">
-          <div>
-            <h4>${app.sinhVien.hoTen}</h4>
-            <p><strong>Email:</strong> ${app.sinhVien.email}</p>
-            <p><strong>Ngành:</strong> ${app.sinhVien.nganhHoc}</p>
-            <p><strong>Địa chỉ:</strong> ${app.sinhVien.diaChi}</p>
-            <p><strong>Ngày Ứng tuyển:</strong> ${new Date(app.ngayUngTuyen).toLocaleDateString()}</p>
-            <p><strong>Trạng thái:</strong> ${app.trangThai}</p>
-          </div>
-          <div>
-            <h4>${app.baiDangTuyenDung.tieuDe}</h4>
-            <p><strong>Mức lương:</strong> ${app.baiDangTuyenDung.mucLuong}</p>
-            <p><strong>Địa điểm:</strong> ${app.baiDangTuyenDung.diaDiem}</p>
-            <p><strong>Loại:</strong> ${app.baiDangTuyenDung.loaiCongViec}</p>
-            <div class="actions">
+            <div class="card grid grid-2">
+            <div>
+                <h4>${app.sinhVien.hoTen}</h4>
+                <p><strong>Email:</strong> ${app.sinhVien.email}</p>
+                <p><strong>Ngành:</strong> ${app.sinhVien.nganhHoc}</p>
+                <p><strong>Địa chỉ:</strong> ${app.sinhVien.diaChi}</p>
+                <p><strong>Ngày Ứng tuyển:</strong> ${new Date(app.ngayUngTuyen).toLocaleDateString()}</p>
+                <p><strong>Trạng thái:</strong> ${app.trangThai}</p>
+            </div>
+            <div>
+                <h4>${app.baiDangTuyenDung.tieuDe}</h4>
+                <p><strong>Mức lương:</strong> ${app.baiDangTuyenDung.mucLuong}</p>
+                <p><strong>Địa điểm:</strong> ${app.baiDangTuyenDung.diaDiem}</p>
+                <p><strong>Loại:</strong> ${app.baiDangTuyenDung.loaiCongViec}</p>
+                <div class="actions">
                 ${app.trangThai === 'Chờ duyệt'
                     ? `<button class="btn accept-btn" data-id="${app.idDon}">Chấp nhận</button>
-                    <button class="btn reject-btn" data-id="${app.idDon}">Từ chối</button>`
+                       <button class="btn reject-btn" data-id="${app.idDon}">Từ chối</button>`
                     : `<span class="status-badge ${app.trangThai === 'Đã chấp nhận' ? 'accepted' : 'rejected'}">
-                        ${app.trangThai}
-                    </span>`}
+                         ${app.trangThai}
+                       </span>
+                       ${app.trangThai === 'Bị từ chối'
+                         ? `<button class="btn delete-btn" data-id="${app.idDon}">Xóa</button>`
+                         : ``}`}
                 <button class="btn detail-btn" data-id="${app.idDon}">Chi tiết</button>
-                </div>
-          </div>
-        </div>
-      `).join("");
+                
+                    </div>
+            </div>
+            </div>
+        `).join("");
 
         // gán event
         document.querySelectorAll(".accept-btn")
             .forEach(b => b.onclick = e => handle(+e.target.dataset.id, true));
         document.querySelectorAll(".reject-btn")
             .forEach(b => b.onclick = e => handle(+e.target.dataset.id, false));
+        document.querySelectorAll(".delete-btn")
+            .forEach(b => b.onclick = e => del(+e.target.dataset.id));
         document.querySelectorAll(".detail-btn")
             .forEach(b => b.onclick = e => showDetail(
                 apps.find(a => a.idDon === +e.target.dataset.id)
@@ -140,6 +146,25 @@ document.addEventListener("DOMContentLoaded", async() => {
             alert("Lỗi xử lý!");
         }
     }
+
+    async function del(idDon) {
+        if (!confirm("Bạn có chắc muốn xóa đơn này?")) return;
+        try {
+          const res = await fetch(`${API}/ung-vien/${idDon}?idNhaTuyenDung=${idNtd}`, {
+            method: "DELETE",
+            headers: {
+              "Authorization": `Bearer ${token}`
+            }
+          });
+          if (!res.ok) throw new Error(await res.text());
+          alert("Xóa thành công!");
+          loadApplicants(+selectPost.value);
+        } catch (err) {
+          console.error(err);
+          alert("Xóa thất bại: " + err.message);
+        }
+      }
+      
 
     function showDetail(app) {
         // Sinh viên
