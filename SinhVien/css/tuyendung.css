@@ -88,7 +88,7 @@ body {
 .header ul li.dropdown .dropdown-toggle {
     cursor: pointer;
     padding: 5px 10px;
-    color: rgb(219, 10, 38);
+    color: orange;
     font-size: 1.2em;
     text-decoration: none;
     letter-spacing: 2px;

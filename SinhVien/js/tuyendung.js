@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
           ${tenSV} <i class="fas "></i>
         </a>
         <ul class="dropdown-menu">
-          <li><a href="/SinhVien/taikhoan.html">Tài Khoản</a></li>
+          <li><a href="/SinhVien/capnhattaikhoan.html">Tài Khoản</a></li>
           <li><a href="/SinhVien/totaldonungtuyen.html">Đơn Ứng Tuyển</a></li>
           <li><a href="#" id="logout-btn">Đăng Xuất</a></li>
         </ul>

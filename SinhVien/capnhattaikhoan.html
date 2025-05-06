@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>University Dai Nam</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Font Awesome & Google Fonts -->
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700&display=swap" rel="stylesheet">
+    <!-- CSS của bạn -->
+    <link rel="stylesheet" href="/SinhVien/css/capnhattaikhoan.css">
+    <link rel="icon" type="image/x-icon" href="/NhaTuyenDung/lg.png">
+    <!-- Script nếu cần -->
+    <script src="/SinhVien/js/capnhattaikhoan.js" defer></script>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <h2 class="logo">
+                <a href="index.html">Đại Nam</a>
+            </h2>
+            <nav>
+                <ul>
+                    <li>
+                        <a href="trangchu.html">Trang Chủ</a>
+                    </li>
+                    <li>
+                        <a href="#">Giới Thiệu</a>
+                    </li>
+                    <li>
+                        <a href="ntdsv.html">Nhà Tuyển Dụng</a>
+                    </li>
+                    <li>
+                        <a href="bvhn.html">Bài Viết</a>
+                    </li>
+                    <li>
+                        <a href="tuyendung.html">Tuyển Dụng</a>
+                    </li>
+                    <li id="login-item">
+                        <a href="/SinhVien/login.html">Đăng Nhập</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+
+    <main class="container">
+        <h1>Thông tin cá nhân</h1>
+        <div id="profile-view">
+            <p><strong>Họ và tên:</strong> <span id="view-hoTen"></span></p>
+            <p><strong>Email:</strong> <span id="view-email"></span></p>
+            <p><strong>Số điện thoại:</strong> <span id="view-soDienThoai"></span></p>
+            <p><strong>Địa chỉ:</strong> <span id="view-diaChi"></span></p>
+            <p><strong>Ngày sinh:</strong> <span id="view-ngaySinh"></span></p>
+            <p><strong>Ngành học:</strong> <span id="view-nganhHoc"></span></p>
+            <p><strong>Năm tốt nghiệp:</strong> <span id="view-namTotNghiep"></span></p>
+            <p><strong>Giới thiệu:</strong> <span id="view-gioiThieu"></span></p>
+            <p><strong>Avatar:</strong> <img id="view-avatar" src="" alt="Avatar" class="avatar-img"></p>
+            <button id="btn-edit" class="btn">Chỉnh sửa</button>
+        </div>
+
+        <form id="form-cap-nhat" class="hidden">
+            <div class="form-group">
+                <label for="hoTen">Họ và tên</label>
+                <input type="text" id="hoTen" name="hoTen" required>
+            </div>
+            <div class="form-group">
+                <label for="soDienThoai">Số điện thoại</label>
+                <input type="text" id="soDienThoai" name="soDienThoai">
+            </div>
+            <div class="form-group">
+                <label for="diaChi">Địa chỉ</label>
+                <input type="text" id="diaChi" name="diaChi">
+            </div>
+            <div class="form-group">
+                <label for="ngaySinh">Ngày sinh</label>
+                <input type="date" id="ngaySinh" name="ngaySinh">
+            </div>
+            <div class="form-group">
+                <label for="gioiThieu">Giới thiệu bản thân</label>
+                <textarea id="gioiThieu" name="gioiThieu" rows="4"></textarea>
+            </div>
+            <button type="submit" class="btn">Lưu</button>
+            <button type="button" id="btn-cancel" class="btn cancel">Hủy</button>
+            <div id="message" class="message"></div>
+        </form>
+    </main>
+
+    <aside class="sci">
+        <ul>
+            <li><a href="https://www.facebook.com/DAINAM.EDU.VN"><i class="fa fa-facebook"></i></a></li>
+            <li><a href="#"><i class="fa fa-user-graduate"></i></a></li>
+            <li><a href="https://www.dainam.edu.vn/vi"><i class="fa fa-linkedin"></i></a></li>
+            <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+        </ul>
+    </aside>
+</body>
+
+</html>
