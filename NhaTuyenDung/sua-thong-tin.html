@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nhà Tuyển Dụng - Đại Nam</title>
+    <link rel="icon" type="image/x-icon" href="/NhaTuyenDung/lg.png" />
+    <link rel="stylesheet" href="/NhaTuyenDung/css/sua-thon-tin.css" />
+    <script defer src="/NhaTuyenDung/js/sua-thon-tin.js"></script>
+</head>
+
+<body>
+    <div id="wrapper">
+        <!-- Header -->
+        <header id="header">
+            <div class="container">
+                <div id="logo">
+                    <a href="index.html">
+                        <img src="/assets/images/logindn.jpg" alt="DaiNam.vn" />
+                    </a>
+                </div>
+                <nav>
+                    <ul id="main-menu">
+                        <li><a href="index.html">Trang chủ</a></li>
+                        <li><a href="dangbai.html">Đăng Bài</a></li>
+                        <li><a href="donungtuyen.html">Hồ sơ ứng viên</a></li>
+                        <li><a href="baiviettuyendung.html">Bài Viết Hướng Nghiệp</a></li>
+                        <li id="login-item"><a href="/NhaTuyenDung/login.html">Đăng Nhập</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+    </div>
+
+    <main class="container profile">
+        <h1>Hồ Sơ Nhà Tuyển Dụng</h1>
+
+        <!-- view-only -->
+        <div id="view-profile" class="card">
+            <p><strong>Logo Công Ty:</strong> <span id="view-logo"></span></p>
+            <p><strong>Công ty:</strong> <span id="view-tenCongTy"></span></p>
+            <p><strong>Email:</strong> <span id="view-email"></span></p>
+            <p><strong>SĐT:</strong> <span id="view-soDienThoai"></span></p>
+            <p><strong>Địa chỉ:</strong> <span id="view-diaChi"></span></p>
+            <p><strong>Lĩnh vực:</strong> <span id="view-linhVuc"></span></p>
+            <p><strong>Website:</strong> <span id="view-trangWeb"></span></p>
+            <p><strong>Mô tả:</strong></p>
+            <p id="view-moTaCongTy" class="description"></p>
+            <button id="btn-edit" class="btn-primary">Chỉnh sửa</button>
+        </div>
+
+        <!-- edit form -->
+        <form id="form-edit" class="card hidden">
+            <div class="form-group">
+                <label for="tenCongTy">Tên công ty</label>
+                <input type="text" id="tenCongTy" name="tenCongTy" required />
+            </div>
+            <div class="form-group">
+                <label for="soDienThoai">Số điện thoại</label>
+                <input type="text" id="soDienThoai" name="soDienThoai" />
+            </div>
+            <div class="form-group">
+                <label for="diaChi">Địa chỉ</label>
+                <input type="text" id="diaChi" name="diaChi" />
+            </div>
+            <div class="form-group">
+                <label for="linhVuc">Lĩnh vực</label>
+                <input type="text" id="linhVuc" name="linhVuc" />
+            </div>
+            <div class="form-group">
+                <label for="trangWeb">Website</label>
+                <input type="url" id="trangWeb" name="trangWeb" />
+            </div>
+            <div class="form-group fullwidth">
+                <label for="moTaCongTy">Mô tả công ty</label>
+                <textarea id="moTaCongTy" name="moTaCongTy" rows="4"></textarea>
+            </div>
+            <div class="btn-group">
+                <button type="submit" class="btn-primary">Lưu</button>
+                <button type="button" id="btn-cancel" class="btn-secondary">Hủy</button>
+            </div>
+        </form>
+    </main>
+</body>
+
+</html>

@@ -33,12 +33,6 @@ a {
     min-height: 100vh;
 }
 
-.container {
-    width: 95%;
-    max-width: 1200px;
-    margin: 30px auto;
-}
-
 
 /* Header */
 
@@ -52,9 +46,13 @@ a {
 }
 
 #header .container {
+    width: 95%;
+    max-width: 1200px;
+    margin: 0 auto;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding: 10px 0;
 }
 
 #logo img {
@@ -66,6 +64,16 @@ a {
 
 
 /* Menu */
+
+main.container {
+    width: 100%;
+    max-width: none;
+    /* gỡ bỏ giới hạn cũ */
+    margin: 0;
+    /* không căn giữa nữa */
+    padding: 40px;
+    /* khoảng cách 4 cạnh */
+}
 
 #main-menu {
     display: flex;

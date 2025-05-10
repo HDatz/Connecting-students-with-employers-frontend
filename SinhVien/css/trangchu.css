@@ -204,8 +204,8 @@ section {
 }
 
 .header ul li.dropdown .dropdown-menu li a:hover {
-    background-color: #f1f1f1;
-    color: orange;
+    background-color: orange;
+    color: white;
 }
 
 

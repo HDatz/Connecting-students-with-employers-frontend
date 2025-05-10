@@ -9,8 +9,8 @@ document.addEventListener('DOMContentLoaded', () => {
             // Login dropdown
             if (token && userName) {
                 loginItem.classList.add('dropdown');
-                loginItem.innerHTML = `<a href="#">${userName} <i class="fas fa-caret-down"></i></a>` +
-                    `<ul class="dropdown-menu"><li><a href="/SinhVien/capnhattaikhoan.html">Tài Khoản</a></li><li><a href="/SinhVien/totaldonungtuyen.html">Đơn Ứng Tuyển</a></li><li><a href="#" id="logout-btn">Đăng Xuất</a></li></ul>`;
+                loginItem.innerHTML = `<a href="#">${userName} <i class="fas "></i></a>` +
+                    `<ul class="dropdown-menu"><li><a href="/SinhVien/capnhattaikhoan.html">Tài Khoản</a></li><li><a href="/SinhVien/totaldonungtuyen.html">Đơn</a></li><li><a href="#" id="logout-btn">Đăng Xuất</a></li></ul>`;
                 document.getElementById('logout-btn').addEventListener('click', e => {
                     e.preventDefault();
                     localStorage.clear();

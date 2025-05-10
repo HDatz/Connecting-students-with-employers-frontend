@@ -1,6 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
     const token = localStorage.getItem("token");
-    if (!token) return alert("Bạn cần đăng nhập!"), location.href = "/NhaTuyenDung/login.html";
+    if (!token) {
+        alert("Bạn cần đăng nhập!");
+        return window.location.href = "/NhaTuyenDung/login.html";
+    }
 
     const parseJwt = t => {
         try {
@@ -10,21 +13,22 @@ document.addEventListener("DOMContentLoaded", () => {
     };
     const payload = parseJwt(token);
     const idNtd = localStorage.getItem("idNhaTuyenDung") || payload.id;
-    if (!idNtd) return alert("Bạn cần đăng nhập!"), location.href = "/NhaTuyenDung/login.html";
+    if (!idNtd) {
+        alert("Bạn cần đăng nhập!");
+        return window.location.href = "/NhaTuyenDung/login.html";
+    }
     localStorage.setItem("idNhaTuyenDung", idNtd);
 
     // Header user dropdown
     const loginItem = document.getElementById("login-item");
     const ten = payload.ten || localStorage.getItem("ten");
-    if (ten && loginItem) {
+    if (ten) {
         loginItem.classList.add("dropdown");
         loginItem.innerHTML = `
-        <a href="#" class="dropdown-toggle">
-          <i class="fa "></i> ${ten}
-        </a>
+        <a href="#" class="dropdown-toggle"><i class="fa"></i> ${ten}</a>
         <ul class="dropdown-menu">
-          <li><a href="/NhaTuyenDung/sua-thong-tin.html">Tài Khoản</a></li>
-          <li><a href="#" id="logout-btn">Đăng Xuất</a></li>
+        <li><a href="/NhaTuyenDung/sua-thong-tin.html">Tài Khoản</a></li>
+        <li><a href="#" id="logout-btn">Đăng Xuất</a></li>
         </ul>`;
         document.getElementById("logout-btn").onclick = () => {
             localStorage.clear();
@@ -32,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
         };
     }
 
-    // Submit đăng bài
+    // === Form tạo mới ===
     document.getElementById("dangBaiForm").onsubmit = async e => {
         e.preventDefault();
         const form = e.target;
@@ -74,20 +78,24 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     };
 
-    // Load tất cả bài đăng ngay khi load
-    const loadPosts = async() => {
+    // === Load & render danh sách ===
+    async function loadPosts() {
         const container = document.getElementById("dsBaiDang");
         container.innerHTML = `<p>Đang tải...</p>`;
         try {
-            let res = await fetch(`http://localhost:8080/api/nha-tuyen-dung/${idNtd}/bai-dang`, {
+            const res = await fetch(`http://localhost:8080/api/nha-tuyen-dung/${idNtd}/bai-dang`, {
                 headers: { "Authorization": `Bearer ${token}` }
             });
             if (!res.ok) throw new Error(await res.text());
-            let list = await res.json();
-            if (!list.length) return container.innerHTML = `<p>Chưa có bài đăng nào.</p>`;
+            const list = await res.json();
+
+            if (!list.length) {
+                container.innerHTML = `<p>Chưa có bài đăng nào.</p>`;
+                return;
+            }
             container.innerHTML = "";
             list.forEach(p => {
-                let card = document.createElement("div");
+                const card = document.createElement("div");
                 card.className = "post-card";
                 card.innerHTML = `
             <h3>${p.tieuDe}</h3>
@@ -96,17 +104,183 @@ document.addEventListener("DOMContentLoaded", () => {
             <p><strong>Hạn nộp:</strong> ${new Date(p.hanNop).toLocaleDateString()}</p>
             <p><strong>Trạng thái:</strong>
               <span class="badge ${p.trangThai}">${p.trangThai}</span>
-            </p>`;
+            </p>
+            <div class="actions"></div>
+          `;
+                const actions = card.querySelector(".actions");
+
+                // Chi tiết luôn có
+                const btnDetail = document.createElement("button");
+                btnDetail.className = "btn-primary";
+                btnDetail.innerHTML = `<i class="fa fa-eye"></i> Chi tiết`;
+                btnDetail.onclick = () => viewPostDetail(p.idBaiDang);
+                actions.appendChild(btnDetail);
+
+                // Xóa chỉ khi CHO_DUYET
+                if (p.trangThai === "CHO_DUYET" || p.trangThai === "TU_CHOI") {
+                    const btnDelete = document.createElement("button");
+                    btnDelete.className = "btn-danger";
+                    btnDelete.innerHTML = `<i class="fa fa-trash"></i> Xóa`;
+                    btnDelete.onclick = () => {
+                        if (confirm("Bạn có chắc muốn xóa bài này?")) {
+                            deletePost(p.idBaiDang);
+                        }
+                    };
+                    actions.appendChild(btnDelete);
+                }
+
                 container.appendChild(card);
             });
         } catch (err) {
             container.innerHTML = `<p class="error">Không tải được: ${err.message}</p>`;
         }
+    }
+
+    // === Xem chi tiết & gắn modal ===
+    async function viewPostDetail(idBaiDang) {
+        const modal = document.getElementById("detail-modal");
+        const form = document.getElementById("modal-form");
+        const saveBtn = document.getElementById("md-save-btn");
+        const deleteBtn = document.getElementById("md-delete-btn");
+
+        modal.dataset.id = idBaiDang;
+
+        try {
+            const res = await fetch(
+                `http://localhost:8080/api/nha-tuyen-dung/bai-dang/${idBaiDang}?idNhaTuyenDung=${idNtd}`, {
+                    headers: { "Authorization": `Bearer ${token}` }
+                }
+            );
+            if (!res.ok) throw new Error(await res.text());
+            const detail = await res.json();
+
+            // Fill form
+            form.elements["md-tieuDe"].value = detail.tieuDe;
+            form.elements["md-moTa"].value = detail.moTa;
+            form.elements["md-yeuCau"].value = detail.yeuCau;
+            form.elements["md-diaDiem"].value = detail.diaDiem;
+            form.elements["md-loaiCongViec"].value = detail.loaiCongViec;
+            form.elements["md-mucLuong"].value = detail.mucLuong;
+            form.elements["md-soLuongTuyen"].value = detail.soLuongTuyen;
+            form.elements["md-hanNop"].value = detail.hanNop ? detail.hanNop.split("T")[0] : ""
+
+            if (detail.trangThai === "CHO_DUYET") {
+                saveBtn.disabled = false;
+                deleteBtn.style.display = "inline-block";
+                Array.from(form.elements).forEach(el => el.disabled = false);
+            } else {
+                saveBtn.disabled = true;
+                deleteBtn.style.display = "none";
+                Array.from(form.elements).forEach(el => el.disabled = true);
+            }
+
+            const bannerPreview = document.getElementById("md-banner-preview");
+            if (bannerPreview) {
+                if (detail.banner) {
+                    bannerPreview.src = `http://localhost:8080/api/nha-tuyen-dung/banners/${detail.banner}`;
+                    bannerPreview.style.display = "block";
+                } else {
+                    bannerPreview.style.display = "none";
+                    bannerPreview.src = "";
+                }
+            }
+
+            modal.style.display = "block";
+        } catch (err) {
+            alert("Không thể lấy chi tiết: " + err.message);
+        }
+    }
+
+    // === Submit chỉnh sửa (PUT) ===
+    document.getElementById("modal-form").onsubmit = async e => {
+        e.preventDefault();
+        const modal = document.getElementById("detail-modal");
+        const idBaiDang = modal.dataset.id;
+        const form = e.target;
+
+        // Tạo FormData và append từng field bắt buộc
+        const formData = new FormData();
+        formData.append("tieuDe", form.elements["md-tieuDe"].value);
+        formData.append("moTa", form.elements["md-moTa"].value);
+        formData.append("yeuCau", form.elements["md-yeuCau"].value);
+        formData.append("diaDiem", form.elements["md-diaDiem"].value);
+        formData.append("loaiCongViec", form.elements["md-loaiCongViec"].value);
+        formData.append("mucLuong", form.elements["md-mucLuong"].value);
+        formData.append("soLuongTuyen", form.elements["md-soLuongTuyen"].value);
+
+        // Đảm bảo hanNop đúng định dạng yyyy-MM-dd
+        const rawHanNop = form.elements["md-hanNop"].value;
+        const hanNopFormatted = rawHanNop.split("T")[0];
+        formData.append("hanNop", hanNopFormatted);
+
+        // Thông tin cập nhật và email
+        formData.append("email", payload.email || localStorage.getItem("email") || "");
+        formData.append("idNguoiCapNhat", idNtd);
+
+        // Chỉ append banner nếu có file thật sự
+        const bannerInput = form.elements["md-banner"];
+        if (bannerInput && bannerInput.files.length > 0) {
+            formData.append("banner", bannerInput.files[0]);
+        }
+
+        try {
+            const res = await fetch(
+                `http://localhost:8080/api/nha-tuyen-dung/bai-dang/${idBaiDang}`, {
+                    method: "PUT",
+                    headers: { "Authorization": `Bearer ${token}` },
+                    body: formData
+                }
+            );
+            if (res.ok) {
+                alert("Cập nhật thành công!");
+                modal.style.display = "none";
+                loadPosts();
+            } else {
+                alert("Lỗi: " + await res.text());
+            }
+        } catch (err) {
+            alert("Lỗi kết nối: " + err.message);
+        }
     };
 
+
+    // === Xóa bài đăng ===
+    async function deletePost(idBaiDang, fromModal = false) {
+        try {
+            const res = await fetch(
+                `http://localhost:8080/api/nha-tuyen-dung/bai-dang/${idBaiDang}/xoa?idNguoiXoa=${idNtd}`, {
+                    method: "DELETE",
+                    headers: { "Authorization": `Bearer ${token}` }
+                }
+            );
+            if (!res.ok) throw new Error(await res.text());
+            alert("Xóa thành công!");
+            if (fromModal) document.getElementById("detail-modal").style.display = "none";
+            loadPosts();
+        } catch (err) {
+            alert("Xóa thất bại: " + err.message);
+        }
+    }
+
+    // Gắn cho nút xóa trong modal
+    document.getElementById("md-delete-btn").onclick = () => {
+        const modal = document.getElementById("detail-modal");
+        const idBaiDang = modal.dataset.id;
+        if (confirm("Bạn có chắc muốn xóa bài này?")) {
+            deletePost(idBaiDang, true);
+        }
+    };
+
+    // Đóng modal
+    document.querySelector(".close-btn").onclick = () => {
+        document.getElementById("detail-modal").style.display = "none";
+    };
+
+    // Khởi chạy
     loadPosts();
 });
 
+// Hàm đăng xuất
 function dangXuat() {
     localStorage.clear();
     window.location.href = "/NhaTuyenDung/login.html";

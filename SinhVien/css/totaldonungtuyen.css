@@ -135,8 +135,8 @@ body {
 }
 
 .header ul li.dropdown .dropdown-menu li a:hover {
-    background-color: #f1f1f1;
-    color: orange;
+    background-color: orange;
+    color: white;
 }
 
 
@@ -160,8 +160,12 @@ body {
 }
 
 .container {
-    width: 90%;
-    margin: 30px auto;
+    width: 100%;
+    max-width: none;
+    padding: 20px;
+    /* nếu muốn khoảng cách hai bên */
+    margin: 0 auto;
+    /* canh giữa (thực ra không cần nếu width 100%) */
 }
 
 .section-title {
@@ -173,8 +177,8 @@ body {
 
 .application-list {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
 }
 
 .application-card {

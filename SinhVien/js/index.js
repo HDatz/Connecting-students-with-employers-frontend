@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function() {
             </a>
             <ul class="dropdown-menu">
                 <li><a href="/SinhVien/capnhattaikhoan.html">Tài Khoản</a></li>
-                <li><a href="/SinhVien/totaldonungtuyen.html">Đơn Ứng Tuyển</a></li>
+                <li><a href="/SinhVien/totaldonungtuyen.html">Đơn</a></li>
                 <li><a href="#" id="logout-btn">Đăng Xuất</a></li>
             </ul>
         </li>
