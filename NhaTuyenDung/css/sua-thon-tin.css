@@ -281,3 +281,95 @@ nav {
 .dropdown:hover .dropdown-menu {
     display: block;
 }
+
+
+/* Thông báo (Notification) */
+
+#notif-btn {
+    position: relative;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    color: var(--text-color);
+    padding: 10px;
+    transition: color var(--transition-speed);
+}
+
+#notif-btn:hover {
+    color: var(--primary-color);
+}
+
+#notif-count {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: red;
+    color: white;
+    font-size: 12px;
+    padding: 2px 6px;
+    border-radius: 50%;
+    display: inline-block;
+    font-weight: bold;
+}
+
+#notif-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 320px;
+    max-height: 400px;
+    overflow-y: auto;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    margin-top: 10px;
+    z-index: 1000;
+    transition: opacity var(--transition-speed);
+}
+
+#notif-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+#notif-list li {
+    padding: 12px 16px;
+    border-bottom: 1px solid #f0f0f0;
+    cursor: pointer;
+    transition: background var(--transition-speed);
+}
+
+#notif-list li:last-child {
+    border-bottom: none;
+}
+
+#notif-list li:hover {
+    background-color: #f9f9f9;
+}
+
+#notif-list li.unread {
+    background-color: #fffbe6;
+    font-weight: 500;
+}
+
+.notif-date {
+    font-size: 12px;
+    color: #888;
+    margin-bottom: 5px;
+}
+
+.notif-content {
+    font-size: 14px;
+    color: var(--text-color);
+    line-height: 1.4;
+}
+
+#notif-empty {
+    padding: 15px;
+    text-align: center;
+    color: #999;
+    font-style: italic;
+}

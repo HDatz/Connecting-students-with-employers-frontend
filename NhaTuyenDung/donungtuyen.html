@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Hồ Sơ Ứng Viên – Đại Nam</title>
     <link rel="icon" href="/NhaTuyenDung/lg.png" type="image/png" />
-    <!-- Fonts & Icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" />
-    <!-- CSS -->
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
     <link rel="stylesheet" href="/NhaTuyenDung/css/donungtuyen.css" />
     <script defer src="/NhaTuyenDung/js/donungtuyen.js"></script>
 </head>
@@ -26,9 +26,18 @@
                     <ul id="main-menu">
                         <li><a href="/NhaTuyenDung/index.html">Trang chủ</a></li>
                         <li><a href="/NhaTuyenDung/dangbai.html">Đăng Bài</a></li>
-                        <li><a href="/NhaTuyenDung/quanly-ungvien.html" class="active">Hồ sơ ứng viên</a></li>
+                        <li><a href="/NhaTuyenDung/donungtuyen.html" class="active">Hồ sơ ứng viên</a></li>
                         <li><a href="/NhaTuyenDung/baiviettuyendung.html">Bài Viết Hướng Nghiệp</a></li>
                         <li id="login-item"><a href="/NhaTuyenDung/login.html">Đăng Nhập</a></li>
+                        <li id="notification-item" class="dropdown">
+                            <a href="#" id="notif-btn"><i class="fas fa-bell"></i>
+                                <span id="notif-count" class="badge hidden">0</span>
+                            </a>
+                            <div id="notif-dropdown" class="dropdown-menu notif-dropdown ">
+                                <ul id="notif-list"></ul>
+                                <div id="notif-empty" class="notif-empty">Không có thông báo mới</div>
+                            </div>
+                        </li>
                     </ul>
                 </nav>
             </div>

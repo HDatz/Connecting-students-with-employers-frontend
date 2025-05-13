@@ -42,6 +42,15 @@
                     <li id="login-item">
                         <a href="/SinhVien/login.html">Đăng Nhập</a>
                     </li>
+                    <li id="notification-item" class="dropdown" style="display: none;">
+                        <a href="#" id="notif-btn"><i class="fa fa-bell"></i>
+                                <span id="notif-count" class="badge hidden">0</span>
+                            </a>
+                        <div id="notif-dropdown" class="dropdown-menu notif-dropdown ">
+                            <ul id="notif-list"></ul>
+                            <div id="notif-empty" class="notif-empty">Không có thông báo mới</div>
+                        </div>
+                    </li>
                 </ul>
             </nav>
         </div>
@@ -58,7 +67,7 @@
     <!-- Modal Detail -->
     <div id="post-detail-modal" class="modal-overlay">
         <div class="modal-content">
-            <button class="close-btn"><i class="fas fa-times"></i></button>
+            <button class="close-btn"><i class="fa fa-times"></i></button>
             <img id="detail-banner" class="detail-banner" src="" alt="Banner" />
             <div class="detail-body">
                 <h2 id="detail-title"></h2>

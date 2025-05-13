@@ -145,7 +145,7 @@ section {
     display: inline-block;
     margin: 20px 0 0;
     padding: 10px 20px;
-    background: orange;
+    background: black;
     color: #fff;
     font-weight: 700;
     text-decoration: none;
@@ -229,7 +229,7 @@ section {
 
 .sci li a {
     font-size: 1.2em;
-    color: orange;
+    color: black;
 }
 
 .header {
