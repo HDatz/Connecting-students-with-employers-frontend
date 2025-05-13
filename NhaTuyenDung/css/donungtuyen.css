@@ -355,7 +355,7 @@ section h3 {
 
 .detail-img {
     width: 100%;
-    max-height: 200px;
+    max-height: 400px;
     object-fit: cover;
     border-radius: var(--border-radius);
     margin-bottom: 15px;

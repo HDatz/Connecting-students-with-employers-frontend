@@ -1,47 +1,8 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // Hàm lấy danh sách nhà tuyển dụng từ API
-    fetch('http://localhost:8080/api/SinhVien/NhaTuyenDung')
-        .then(response => response.json())
-        .then(data => {
-            const companyList = document.querySelector('.company-list');
-            companyList.innerHTML = ''; // Xóa nội dung cũ
-
-            // Duyệt qua dữ liệu và thêm vào HTML
-            data.forEach(company => {
-                const companyItem = document.createElement('article');
-                companyItem.classList.add('company-item');
-
-                // Tạo phần tử logo công ty
-                const companyLogo = document.createElement('img');
-                companyLogo.src = `http://localhost:8080/api/SinhVien/company_logos/${company.avatar}`; // Lấy ảnh từ API
-                companyLogo.alt = `Logo ${company.tenCongTy}`;
-
-                // Tạo phần tử tên công ty
-                const companyName = document.createElement('h4');
-                companyName.textContent = company.tenCongTy;
-
-                // Tạo phần tử liên kết xem chi tiết
-                const viewDetailsLink = document.createElement('a');
-                viewDetailsLink.href = `chitietcongty.html?id=${company.idNhaTuyenDung}`;
-                // Hoặc đường dẫn chi tiết công ty nếu có
-                viewDetailsLink.textContent = 'Xem chi tiết';
-
-                // Thêm tất cả phần tử vào companyItem
-                companyItem.appendChild(companyLogo);
-                companyItem.appendChild(companyName);
-                // companyItem.appendChild(companyDescription);
-                companyItem.appendChild(viewDetailsLink);
-
-                companyList.appendChild(companyItem);
-            });
-        })
-        .catch(error => {
-            console.error('Lỗi khi lấy dữ liệu nhà tuyển dụng:', error);
-        });
-
-    // Thêm đoạn mã login vào sau khi trang đã tải
+document.addEventListener("DOMContentLoaded", function() {
+    // Lấy token và tên nhà tuyển dụng từ localStorage
     const token = localStorage.getItem("token");
     const tenSinhVien = localStorage.getItem("ten");
+    const userId = localStorage.getItem("userId");
     const loginItem = document.getElementById("login-item");
 
     // Nếu đã đăng nhập (có token) và có tên, thay thế nội dung nút đăng nhập:
@@ -49,17 +10,17 @@ document.addEventListener('DOMContentLoaded', function() {
         // Thêm class dropdown cho li
         loginItem.classList.add("dropdown");
         loginItem.innerHTML = `
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle">
-                    <i class=""></i> <span id="ten-sv">${tenSinhVien}</span>
-                </a>
-                <ul class="dropdown-menu">
-                    <li><a href="/SinhVien/capnhattaikhoan.html">Tài Khoản</a></li>
-                    <li><a href="/SinhVien/totaldonungtuyen.html">Đơn</a></li>
-                    <li><a href="#" id="logout-btn">Đăng Xuất</a></li>
-                </ul>
-            </li>
-        `;
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle">
+                <i class=""></i> <span id="ten-sv">${tenSinhVien}</span>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a href="/SinhVien/capnhattaikhoan.html">Tài Khoản</a></li>
+                <li><a href="/SinhVien/totaldonungtuyen.html">Đơn</a></li>
+                <li><a href="#" id="logout-btn">Đăng Xuất</a></li>
+            </ul>
+        </li>
+    `;
         const notificationItem = document.getElementById("notification-item");
         if (notificationItem) {
             notificationItem.style.display = "block";
@@ -78,8 +39,6 @@ document.addEventListener('DOMContentLoaded', function() {
             notificationItem.style.display = "none";
         }
     }
-
-    const userId = localStorage.getItem("userId");
     const notifBtn = document.getElementById("notif-btn");
     const notifDropdown = document.getElementById("notif-dropdown");
     const notifList = document.getElementById("notif-list");
@@ -201,7 +160,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// Hàm đăng xuất
+
 function dangXuat() {
     // Xóa các thông tin đăng nhập khi đăng xuất
     localStorage.clear();

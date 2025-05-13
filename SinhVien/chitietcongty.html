@@ -9,9 +9,10 @@
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700&display=swap" rel="stylesheet">
     <!-- CSS của bạn -->
-    <link rel="stylesheet" href="/SinhVien/css/tuyendung.css">
+    <link rel="stylesheet" href="/SinhVien/css/chitietcongty.css">
+
     <!-- Script nếu cần -->
-    <script src="/SinhVien/js/tuyendung.js"></script>
+    <script src="/SinhVien/js/chitietcongty.js"></script>
     <link rel="icon" type="image/x-icon" href="/NhaTuyenDung/lg.png">
 </head>
 
@@ -31,13 +32,13 @@
                         <a href="gioithieu.html">Giới Thiệu</a>
                     </li>
                     <li>
-                        <a href="ntdsv.html">Nhà Tuyển Dụng</a>
+                        <a href="ntdsv.html" class="active">Nhà Tuyển Dụng</a>
                     </li>
                     <li>
                         <a href="bvhn.html">Bài Viết</a>
                     </li>
                     <li>
-                        <a href="#" class="active">Tuyển Dụng</a>
+                        <a href="tuyendung.html">Tuyển Dụng</a>
                     </li>
                     <li id="login-item">
                         <a href="/SinhVien/login.html">Đăng Nhập</a>
@@ -56,43 +57,69 @@
         </div>
     </header>
 
-    <!-- Main Content -->
-    <main class="companies">
-        <div class="container">
-            <h3 class="section-title">Bài Tuyển Dụng</h3>
-            <div class="company-list"></div>
+    <h1 class="company-title">Chi Tiết Công Ty</h1>
+    <main class="company-detail container">
+        <div id="company-info" class="company-card">
+
+            <!-- Logo -->
+            <div class="company-avatar-wrapper">
+                <img id="company-avatar" class="company-avatar" src="" alt="Logo công ty">
+            </div>
+
+            <!-- Grid 2 cột -->
+            <div class="company-info">
+
+                <div class="info-row">
+                    <span class="label">Tên Công Ty:</span>
+                    <span class="value" id="company-name"></span>
+                </div>
+
+                <div class="info-row">
+                    <span class="label">Email:</span>
+                    <span class="value" id="company-email"></span>
+                </div>
+
+                <div class="info-row">
+                    <span class="label">Điện thoại:</span>
+                    <span class="value" id="company-phone"></span>
+                </div>
+
+                <div class="info-row">
+                    <span class="label">Địa chỉ:</span>
+                    <span class="value" id="company-address"></span>
+                </div>
+
+                <div class="info-row">
+                    <span class="label">Lĩnh vực:</span>
+                    <span class="value" id="company-field"></span>
+                </div>
+
+                <div class="info-row">
+                    <span class="label">Website:</span>
+                    <span class="value">
+                    <a id="company-website" href="#" target="_blank"></a>
+                </span>
+                </div>
+
+                <!-- Ngày tạo - chiếm cả dòng -->
+                <div class="info-row full-width">
+                    <span class="label">Ngày tạo:</span>
+                    <span class="value" id="company-created"></span>
+                </div>
+            </div>
+
+            <!-- Giới thiệu -->
+            <div class="company-description">
+                <h3>Giới thiệu công ty</h3>
+                <p id="company-description"></p>
+            </div>
+
+            <!-- Bản đồ -->
+            <div id="company-map" class="company-map"></div>
         </div>
     </main>
 
-    <!-- Modal Detail -->
-    <div id="post-detail-modal" class="modal-overlay">
-        <div class="modal-content">
-            <button class="close-btn"><i class="fa fa-times"></i></button>
-            <img id="detail-banner" class="detail-banner" src="" alt="Banner" />
-            <div class="detail-body">
-                <h2 id="detail-title"></h2>
-                <p id="detail-description" class="detail-text"></p>
-                <ul class="detail-info">
-                    <li><strong>Yêu cầu:</strong> <span id="detail-requirements"></span></li>
-                    <li><strong>Địa điểm:</strong> <span id="detail-location"></span></li>
-                    <li><strong>Loại công việc:</strong> <span id="detail-type"></span></li>
-                    <li><strong>Mức lương:</strong> <span id="detail-salary"></span></li>
-                    <li><strong>Ngày đăng:</strong> <span id="detail-posted"></span></li>
-                    <li><strong>Hạn nộp:</strong> <span id="detail-deadline"></span></li>
-                    <li><strong>Số lượng tuyển:</strong> <span id="detail-quantity"></span></li>
-                </ul>
-                <button id="apply-btn" class="btn apply-btn">Ứng tuyển</button>
-                <div id="cv-upload" style="display: none; margin-top: 1rem;">
-                    <form id="apply-form" enctype="multipart/form-data">
-                        <input type="file" id="cv-file" name="duongDanCv" accept="application/pdf" required />
-                        <button type="submit" class="btn apply-btn">Gửi CV</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
+    <!-- Social Icons -->
     <aside class="sci">
         <ul>
             <li><a href="https://www.facebook.com/DAINAM.EDU.VN"><i class="fa fa-facebook"></i></a></li>

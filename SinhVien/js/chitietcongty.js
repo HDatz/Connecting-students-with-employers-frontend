@@ -1,47 +1,60 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // Hàm lấy danh sách nhà tuyển dụng từ API
-    fetch('http://localhost:8080/api/SinhVien/NhaTuyenDung')
-        .then(response => response.json())
-        .then(data => {
-            const companyList = document.querySelector('.company-list');
-            companyList.innerHTML = ''; // Xóa nội dung cũ
+document.addEventListener("DOMContentLoaded", () => {
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("id");
+    const container = document.getElementById("company-info");
 
-            // Duyệt qua dữ liệu và thêm vào HTML
-            data.forEach(company => {
-                const companyItem = document.createElement('article');
-                companyItem.classList.add('company-item');
+    if (!id) {
+        container.innerHTML = "<p>Không tìm thấy công ty.</p>";
+        return;
+    }
 
-                // Tạo phần tử logo công ty
-                const companyLogo = document.createElement('img');
-                companyLogo.src = `http://localhost:8080/api/SinhVien/company_logos/${company.avatar}`; // Lấy ảnh từ API
-                companyLogo.alt = `Logo ${company.tenCongTy}`;
-
-                // Tạo phần tử tên công ty
-                const companyName = document.createElement('h4');
-                companyName.textContent = company.tenCongTy;
-
-                // Tạo phần tử liên kết xem chi tiết
-                const viewDetailsLink = document.createElement('a');
-                viewDetailsLink.href = `chitietcongty.html?id=${company.idNhaTuyenDung}`;
-                // Hoặc đường dẫn chi tiết công ty nếu có
-                viewDetailsLink.textContent = 'Xem chi tiết';
-
-                // Thêm tất cả phần tử vào companyItem
-                companyItem.appendChild(companyLogo);
-                companyItem.appendChild(companyName);
-                // companyItem.appendChild(companyDescription);
-                companyItem.appendChild(viewDetailsLink);
-
-                companyList.appendChild(companyItem);
-            });
+    fetch(`http://localhost:8080/api/SinhVien/NhaTuyenDung/${id}`)
+        .then(res => {
+            if (!res.ok) throw new Error("Không tìm thấy công ty");
+            return res.json();
         })
-        .catch(error => {
-            console.error('Lỗi khi lấy dữ liệu nhà tuyển dụng:', error);
-        });
+        .then(data => {
+            // 1. Avatar
+            const img = document.getElementById("company-avatar");
+            img.src = `http://localhost:8080/api/SinhVien/company_logos/${data.avatar}`;
+            img.alt = `Logo ${data.tenCongTy}`;
 
-    // Thêm đoạn mã login vào sau khi trang đã tải
+            // 2. Điền info
+            document.getElementById("company-name").textContent = data.tenCongTy;
+            document.getElementById("company-email").textContent = data.email;
+            document.getElementById("company-phone").textContent = data.soDienThoai;
+            document.getElementById("company-address").textContent = data.diaChi;
+            document.getElementById("company-field").textContent = data.linhVuc;
+
+            const webA = document.getElementById("company-website");
+            webA.href = data.trangWeb;
+            webA.textContent = data.trangWeb;
+
+            document.getElementById("company-created").textContent =
+                new Date(data.ngayTao).toLocaleDateString("vi-VN");
+
+            // 3. Giới thiệu
+            document.getElementById("company-description").textContent =
+                data.moTaCongTy || "Chưa có mô tả.";
+
+            // 4. Map
+            const mapDiv = document.getElementById("company-map");
+            mapDiv.innerHTML = ""; // chắc chắn sạch
+            const iframe = document.createElement("iframe");
+            iframe.src = `https://www.google.com/maps?q=${encodeURIComponent(data.diaChi)}&output=embed`;
+            iframe.loading = "lazy";
+            iframe.width = "100%";
+            iframe.height = "500";
+            iframe.style.border = "0";
+            mapDiv.appendChild(iframe);
+        })
+        .catch(err => {
+            console.error(err);
+            container.innerHTML = "<p>Lỗi khi tải thông tin công ty.</p>";
+        });
     const token = localStorage.getItem("token");
     const tenSinhVien = localStorage.getItem("ten");
+    const userId = localStorage.getItem("userId");
     const loginItem = document.getElementById("login-item");
 
     // Nếu đã đăng nhập (có token) và có tên, thay thế nội dung nút đăng nhập:
@@ -49,17 +62,17 @@ document.addEventListener('DOMContentLoaded', function() {
         // Thêm class dropdown cho li
         loginItem.classList.add("dropdown");
         loginItem.innerHTML = `
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle">
-                    <i class=""></i> <span id="ten-sv">${tenSinhVien}</span>
-                </a>
-                <ul class="dropdown-menu">
-                    <li><a href="/SinhVien/capnhattaikhoan.html">Tài Khoản</a></li>
-                    <li><a href="/SinhVien/totaldonungtuyen.html">Đơn</a></li>
-                    <li><a href="#" id="logout-btn">Đăng Xuất</a></li>
-                </ul>
-            </li>
-        `;
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle">
+                <i class=""></i> <span id="ten-sv">${tenSinhVien}</span>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a href="/SinhVien/capnhattaikhoan.html">Tài Khoản</a></li>
+                <li><a href="/SinhVien/totaldonungtuyen.html">Đơn</a></li>
+                <li><a href="#" id="logout-btn">Đăng Xuất</a></li>
+            </ul>
+        </li>
+    `;
         const notificationItem = document.getElementById("notification-item");
         if (notificationItem) {
             notificationItem.style.display = "block";
@@ -78,8 +91,6 @@ document.addEventListener('DOMContentLoaded', function() {
             notificationItem.style.display = "none";
         }
     }
-
-    const userId = localStorage.getItem("userId");
     const notifBtn = document.getElementById("notif-btn");
     const notifDropdown = document.getElementById("notif-dropdown");
     const notifList = document.getElementById("notif-list");
@@ -201,7 +212,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// Hàm đăng xuất
 function dangXuat() {
     // Xóa các thông tin đăng nhập khi đăng xuất
     localStorage.clear();
